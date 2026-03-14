@@ -48,8 +48,13 @@ export default async function ProposalPage({ params }: PageProps) {
 
   const data = prospect.data
 
-  // Parse JSON fields
-  const monthlyData = safeParseJson(data.monthlyData, [])
+  // Parse JSON fields — monthlyData is stored as { "YYYY-MM": {...} } object, convert to sorted array
+  const monthlyDataRaw = safeParseJson(data.monthlyData, {})
+  const monthlyData = Array.isArray(monthlyDataRaw)
+    ? monthlyDataRaw
+    : Object.entries(monthlyDataRaw)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([month, values]) => ({ month, ...(values as Record<string, unknown>) }))
   const membershipBreakdown = safeParseJson(data.membershipBreakdown, [])
   const introBreakdown = safeParseJson(data.introBreakdown, [])
   const campaignBreakdown = safeParseJson(data.campaignBreakdown, [])
