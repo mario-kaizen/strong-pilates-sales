@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Prospect {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  locationName  String
+  city          String
+  country       String
+  address       String   @default("")
+  ghlLocationId String   @default("")
+  ghlPit        String   @default("")
+  openingDate   DateTime
+  status        String   @default("draft")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  data      ProspectData?
+  diagnosis Diagnosis?
+  uploads   Upload[]
+}
+
+model ProspectData {
+  id         String @id @default(cuid())
+  prospectId String @unique
+  prospect   Prospect @relation(fields: [prospectId], references: [id], onDelete: Cascade)
+
+  totalContacts       Int    @default(0)
+  contactsWithEmail   Int    @default(0)
+  totalIntros         Int    @default(0)
+  totalMemberships    Int    @default(0)
+  totalCancellations  Int    @default(0)
+  totalPackages       Int    @default(0)
+  activeMemberships   Int    @default(0)
+  activeIntros        Int    @default(0)
+  suspendedCount      Int    @default(0)
+  uniqueIntroBuyers   Int    @default(0)
+  uniqueMemberHolders Int    @default(0)
+  introConversionRate Float  @default(0)
+  churnRate           Float  @default(0)
+  totalMrr            Float  @default(0)
+  avgMemberValue      Float  @default(0)
+  totalAdSpend        Float  @default(0)
+  presaleAdSpend      Float  @default(0)
+  operatingAdSpend    Float  @default(0)
+  operatingLeads      Int    @default(0)
+  operatingCpl        Float  @default(0)
+  costPerIntro        Float  @default(0)
+  monthlyData         String @default("{}")
+  membershipBreakdown String @default("{}")
+  introBreakdown      String @default("{}")
+  campaignBreakdown   String @default("{}")
+  suspendedBreakdown  String @default("{}")
+  memberTiers         String @default("{}")
+  funnelData          String @default("{}")
+  cancellationReasons String @default("{}")
+}
+
+model Diagnosis {
+  id              String @id @default(cuid())
+  prospectId      String @unique
+  prospect        Prospect @relation(fields: [prospectId], references: [id], onDelete: Cascade)
+
+  challenges      String @default("[]")
+  blindspots      String @default("[]")
+  recommendations String @default("[]")
+  summary         String @default("")
+  rawTranscript   String @default("")
+}
+
+model Upload {
+  id         String   @id @default(cuid())
+  prospectId String
+  prospect   Prospect @relation(fields: [prospectId], references: [id], onDelete: Cascade)
+
+  type       String
+  filename   String
+  status     String   @default("pending")
+  rowCount   Int      @default(0)
+  metadata   String   @default("{}")
+  createdAt  DateTime @default(now())
+}
