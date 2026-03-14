@@ -1,13 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import { PrismaLibSql } from '@prisma/adapter-libsql'
-import path from 'path'
 
 function createPrismaClient() {
-  const dbUrl = process.env.DATABASE_URL ?? `file:${path.join(process.cwd(), 'data', 'strong-pilates-sales.db')}`
-
-  // @prisma/adapter-libsql takes the libsql config object (with url) directly
+  const dbUrl = process.env.DATABASE_URL || `file:${process.cwd()}/data/strong-pilates-sales.db`
   const adapter = new PrismaLibSql({ url: dbUrl })
-  return new PrismaClient({ adapter } as ConstructorParameters<typeof PrismaClient>[0])
+  return new PrismaClient({ adapter } as any)
 }
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }

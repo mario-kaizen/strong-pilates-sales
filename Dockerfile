@@ -1,4 +1,5 @@
 FROM node:22-alpine AS base
+RUN apk add --no-cache python3 make g++
 
 FROM base AS deps
 WORKDIR /app
@@ -22,11 +23,7 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma/adapter-libsql ./node_modules/@prisma/adapter-libsql
-COPY --from=builder /app/node_modules/@libsql ./node_modules/@libsql
-COPY --from=builder /app/node_modules/@anthropic-ai ./node_modules/@anthropic-ai
-COPY --from=builder /app/node_modules/csv-parse ./node_modules/csv-parse
+COPY --from=builder /app/node_modules ./node_modules
 RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
 USER nextjs
 EXPOSE 3000

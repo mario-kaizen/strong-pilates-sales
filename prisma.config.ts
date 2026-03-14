@@ -4,6 +4,6 @@ import path from 'node:path'
 export default defineConfig({
   schema: path.join('prisma', 'schema.prisma'),
   datasource: {
-    url: `file:///${path.join(process.cwd(), 'data', 'strong-pilates-sales.db')}`,
+    url: process.env.DATABASE_URL || `file:${path.join(process.cwd(), 'data', 'strong-pilates-sales.db')}`,
   },
 })
