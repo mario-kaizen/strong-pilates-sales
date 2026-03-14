@@ -50,7 +50,7 @@ export async function pullGhlContacts(locationId: string, pit: string): Promise<
     nextPageUrl = data.meta?.nextPageUrl ?? null
 
     if (nextPageUrl) {
-      await new Promise(r => setTimeout(r, 100))
+      await new Promise(r => setTimeout(r, 50))
     }
   }
 

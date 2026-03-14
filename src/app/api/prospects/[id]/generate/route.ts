@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { generateProposalData } from '@/lib/generators/proposal'
 
+export const maxDuration = 120 // Allow up to 2 minutes for GHL pull + Claude analysis
+
 export async function POST(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
 
