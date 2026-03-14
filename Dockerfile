@@ -11,6 +11,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
+RUN mkdir -p data && npx prisma db push
 RUN npm run build
 
 FROM base AS runner
