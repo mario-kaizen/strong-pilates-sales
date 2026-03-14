@@ -25,8 +25,8 @@ const defaultColors = [
 ]
 
 export default function Revenue({ totalMrr, membershipBreakdown }: RevenueProps) {
-  const formattedMrr = totalMrr >= 1000 ? `$${(totalMrr / 1000).toFixed(1)}K` : `$${totalMrr.toFixed(0)}`
-  const maxRev = Math.max(...membershipBreakdown.map(p => p.revenue))
+  const formattedMrr = (totalMrr ?? 0) >= 1000 ? `$${((totalMrr ?? 0) / 1000).toFixed(1)}K` : `$${(totalMrr ?? 0).toFixed(0)}`
+  const maxRev = membershipBreakdown.length > 0 ? Math.max(...membershipBreakdown.map(p => p.revenue ?? 0)) : 1
 
   const donutConfig = useMemo<ChartConfiguration>(() => ({
     type: 'doughnut',
@@ -111,7 +111,7 @@ export default function Revenue({ totalMrr, membershipBreakdown }: RevenueProps)
                       fontSize: '16px',
                     }}
                   >
-                    ${plan.revenue.toLocaleString()}
+                    ${(plan.revenue ?? 0).toLocaleString()}
                   </td>
                   <td style={{ padding: '14px 16px', width: '120px' }}>
                     <div

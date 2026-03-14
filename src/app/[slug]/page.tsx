@@ -48,40 +48,112 @@ export default async function ProposalPage({ params }: PageProps) {
 
   const data = prospect.data
 
-  // Parse JSON fields — monthlyData is stored as { "YYYY-MM": {...} } object, convert to sorted array
+  // Parse JSON fields — monthlyData is stored as { "YYYY-MM": { hapana: {...}, meta: {...}, ghlContacts: N } }
+  // Convert to flat array for chart components
   const monthlyDataRaw = safeParseJson(data.monthlyData, {})
   const monthlyData = Array.isArray(monthlyDataRaw)
     ? monthlyDataRaw
     : Object.entries(monthlyDataRaw)
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([month, values]) => ({ month, ...(values as Record<string, unknown>) }))
-  const membershipBreakdown = safeParseJson(data.membershipBreakdown, [])
-  const introBreakdown = safeParseJson(data.introBreakdown, [])
+        .map(([month, values]) => {
+          const v = values as Record<string, unknown>
+          const hapana = (v.hapana as Record<string, number>) || {}
+          const meta = (v.meta as Record<string, number>) || {}
+          const ghlContacts = (v.ghlContacts as number) || 0
+          return {
+            month,
+            // Flatten hapana fields for MonthlyActivity / CancellationDeepDive
+            contactsCreated: ghlContacts,
+            accountsCreated: (hapana.accounts as number) || 0,
+            introsPurchased: (hapana.intros as number) || 0,
+            membershipsPurchased: (hapana.memberships as number) || 0,
+            packagesPurchased: (hapana.packages as number) || 0,
+            membershipsCancelled: (hapana.cancellations as number) || 0,
+            // Flatten meta fields for RealCost
+            adSpend: (meta.spend as number) || 0,
+            adLeads: (meta.realLeads as number) || (meta.leads as number) || 0,
+            adPurchases: (meta.purchases as number) || 0,
+          }
+        })
+
+  // membershipBreakdown: stored as { [planName]: { count, revenue, price } } — convert to array
+  const membershipBreakdownRaw = safeParseJson(data.membershipBreakdown, {})
+  const membershipBreakdown = Array.isArray(membershipBreakdownRaw)
+    ? membershipBreakdownRaw
+    : Object.entries(membershipBreakdownRaw)
+        .map(([name, val]) => {
+          const v = val as Record<string, number>
+          return { name, count: v.count || 0, price: v.price || null, revenue: v.revenue || 0 }
+        })
+        .sort((a, b) => b.revenue - a.revenue)
+
+  // introBreakdown: stored as { [name]: number } — convert to array
+  const introBreakdownRaw = safeParseJson(data.introBreakdown, {})
+  const introBreakdown = Array.isArray(introBreakdownRaw)
+    ? introBreakdownRaw
+    : Object.entries(introBreakdownRaw)
+        .map(([name, count]) => ({ name, count: (count as number) || 0 }))
+        .sort((a, b) => b.count - a.count)
+
   const campaignBreakdown = safeParseJson(data.campaignBreakdown, [])
-  const suspendedBreakdown = safeParseJson(data.suspendedBreakdown, [])
-  const memberTiers = safeParseJson(data.memberTiers, [])
-  const funnelData = safeParseJson(data.funnelData, {
-    crmContacts: data.totalContacts,
-    accountsCreated: 0,
-    introPurchased: data.uniqueIntroBuyers,
-    convertedToMember: 0,
-    stillActive: data.activeMemberships,
-    totalMembershipRecords: data.totalMemberships,
-    cancelled: data.totalCancellations,
-    suspended: data.suspendedCount,
-  })
+
+  // suspendedBreakdown: stored as { [name]: number } — convert to array
+  const suspendedBreakdownRaw = safeParseJson(data.suspendedBreakdown, {})
+  const suspendedBreakdown = Array.isArray(suspendedBreakdownRaw)
+    ? suspendedBreakdownRaw
+    : Object.entries(suspendedBreakdownRaw)
+        .map(([name, count]) => ({ name, count: (count as number) || 0 }))
+        .sort((a, b) => b.count - a.count)
+
+  // memberTiers: stored as { premium: { count, revenue }, mid: {...}, low: {...} } — convert to array
+  const memberTiersRaw = safeParseJson(data.memberTiers, {})
+  const memberTiers = Array.isArray(memberTiersRaw)
+    ? memberTiersRaw
+    : (() => {
+        const tiers = memberTiersRaw as Record<string, Record<string, number>>
+        const tierConfig = [
+          { key: 'premium', label: 'Premium ($196+)', color: '#4A7C59' },
+          { key: 'mid', label: 'Mid ($100–$195)', color: '#C8A951' },
+          { key: 'low', label: 'Under $100', color: '#C44536' },
+        ]
+        return tierConfig
+          .filter(t => tiers[t.key] && (tiers[t.key].count > 0 || tiers[t.key].revenue > 0))
+          .map(t => ({
+            label: t.label,
+            count: tiers[t.key]?.count || 0,
+            revenue: tiers[t.key]?.revenue || 0,
+            color: t.color,
+          }))
+      })()
+
+  // funnelData: stored as FunnelData { contacts, contactsWithEmail, accounts, introBuyers, converted, active, suspended, cancelled }
+  // ConversionFunnel expects { crmContacts, accountsCreated, introPurchased, convertedToMember, stillActive, totalMembershipRecords, cancelled, suspended }
+  const funnelDataRaw = safeParseJson(data.funnelData, {})
+  const rawFunnel = funnelDataRaw as Record<string, number>
+  const funnelData = {
+    crmContacts: rawFunnel.crmContacts ?? rawFunnel.contactsWithEmail ?? rawFunnel.contacts ?? data.totalContacts ?? 0,
+    accountsCreated: rawFunnel.accountsCreated ?? rawFunnel.accounts ?? 0,
+    introPurchased: rawFunnel.introPurchased ?? rawFunnel.introBuyers ?? data.uniqueIntroBuyers ?? 0,
+    convertedToMember: rawFunnel.convertedToMember ?? rawFunnel.converted ?? 0,
+    stillActive: rawFunnel.stillActive ?? rawFunnel.active ?? data.activeMemberships ?? 0,
+    totalMembershipRecords: rawFunnel.totalMembershipRecords ?? data.totalMemberships ?? 0,
+    cancelled: rawFunnel.cancelled ?? data.totalCancellations ?? 0,
+    suspended: rawFunnel.suspended ?? data.suspendedCount ?? 0,
+  }
 
   // Compute derived values for Opportunity section
-  const currentConversion = data.introConversionRate
+  const currentConversion = data.introConversionRate ?? 0
   const targetConversion = 50
-  const currentChurn = data.churnRate
+  const currentChurn = data.churnRate ?? 0
   const targetChurn = 15
   const avgMemberValue = data.avgMemberValue || 165
 
   // Rough projection calcs
   const yearlyIntros = data.uniqueIntroBuyers || 0
   const extraMembersPerYear = Math.round(yearlyIntros * ((targetConversion - currentConversion) / 100))
-  const fewerCancellationsPerYear = Math.round(data.totalCancellations * ((currentChurn - targetChurn) / currentChurn))
+  const fewerCancellationsPerYear = currentChurn > 0
+    ? Math.round((data.totalCancellations ?? 0) * ((currentChurn - targetChurn) / currentChurn))
+    : 0
   const netMembersPerYear = extraMembersPerYear + fewerCancellationsPerYear
   const additionalMrrPerMonth = Math.round(netMembersPerYear * avgMemberValue)
 

@@ -27,15 +27,15 @@ export default function Opportunity({
   additionalMrrPerMonth,
   currentMrr,
 }: OpportunityProps) {
-  const additionalAnnualRevenue = netMembersPerYear * avgMemberValue * 12
-  const targetMrr = currentMrr + additionalMrrPerMonth
+  const additionalAnnualRevenue = (netMembersPerYear ?? 0) * (avgMemberValue ?? 0) * 12
+  const targetMrr = (currentMrr ?? 0) + (additionalMrrPerMonth ?? 0)
 
   return (
     <SectionWrapper
       id="section-09"
       label="09 — The Opportunity"
       title="Where the Money Is Hiding"
-      description={`Your conversion rate is actually ${currentConversion.toFixed(0)}% — not terrible. The real opportunity is two levers: converting more intros AND keeping the members you already have.`}
+      description={`Your conversion rate is actually ${(currentConversion ?? 0).toFixed(0)}% — not terrible. The real opportunity is two levers: converting more intros AND keeping the members you already have.`}
     >
       {/* Big projection callout */}
       <div
@@ -61,7 +61,7 @@ export default function Opportunity({
             position: 'relative',
           }}
         >
-          If you move intro conversion from {currentConversion.toFixed(0)}% to {targetConversion.toFixed(0)}% AND cut churn from {currentChurn.toFixed(0)}% to {targetChurn.toFixed(0)}%...
+          If you move intro conversion from {(currentConversion ?? 0).toFixed(0)}% to {(targetConversion ?? 0).toFixed(0)}% AND cut churn from {(currentChurn ?? 0).toFixed(0)}% to {(targetChurn ?? 0).toFixed(0)}%...
         </h3>
 
         {/* Two lever boxes */}
@@ -69,35 +69,35 @@ export default function Opportunity({
           <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--gold)', marginBottom: '12px' }}>Lever 1: Conversion</div>
             <div style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '36px', fontWeight: 700, color: 'var(--cream)' }}>
-              {currentConversion.toFixed(0)}% &rarr; {targetConversion.toFixed(0)}%
+              {(currentConversion ?? 0).toFixed(0)}% &rarr; {(targetConversion ?? 0).toFixed(0)}%
             </div>
             <div style={{ fontSize: '13px', color: 'rgba(250,247,242,0.5)', marginTop: '8px' }}>
-              Intro-to-member conversion<br />+{extraMembersPerYear} extra members/year at current volume
+              Intro-to-member conversion<br />+{extraMembersPerYear ?? 0} extra members/year at current volume
             </div>
           </div>
           <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--gold)', marginBottom: '12px' }}>Lever 2: Retention</div>
             <div style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '36px', fontWeight: 700, color: 'var(--cream)' }}>
-              {currentChurn.toFixed(0)}% &rarr; {targetChurn.toFixed(0)}%
+              {(currentChurn ?? 0).toFixed(0)}% &rarr; {(targetChurn ?? 0).toFixed(0)}%
             </div>
             <div style={{ fontSize: '13px', color: 'rgba(250,247,242,0.5)', marginTop: '8px' }}>
-              Churn rate halved<br />~{fewerCancellationsPerYear} fewer cancellations/year
+              Churn rate halved<br />~{fewerCancellationsPerYear ?? 0} fewer cancellations/year
             </div>
           </div>
         </div>
 
         <p style={{ marginTop: '24px', textAlign: 'center', fontSize: '16px', color: 'var(--cream)', position: 'relative' }}>
-          Combined: <strong style={{ color: 'var(--gold)' }}>+{netMembersPerYear} net members/year</strong> at ${avgMemberValue.toFixed(0)}/month avg = <strong style={{ color: 'var(--gold)' }}>+${(additionalMrrPerMonth / 1000).toFixed(0)}K/month in MRR</strong>
+          Combined: <strong style={{ color: 'var(--gold)' }}>+{netMembersPerYear ?? 0} net members/year</strong> at ${(avgMemberValue ?? 0).toFixed(0)}/month avg = <strong style={{ color: 'var(--gold)' }}>+${((additionalMrrPerMonth ?? 0) / 1000).toFixed(0)}K/month in MRR</strong>
           <br />
           <span style={{ color: 'rgba(250,247,242,0.5)' }}>
-            More intros converting + fewer members leaving = compounding growth. Taking you from ${(currentMrr / 1000).toFixed(1)}K toward ${(targetMrr / 1000).toFixed(0)}K/month.
+            More intros converting + fewer members leaving = compounding growth. Taking you from ${((currentMrr ?? 0) / 1000).toFixed(1)}K toward ${((targetMrr ?? 0) / 1000).toFixed(0)}K/month.
           </span>
         </p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '24px' }}>
-        <InsightCard number={`$${(additionalAnnualRevenue / 1000).toFixed(0)}K+`} title="Additional Annual Revenue">
-          <p>{netMembersPerYear} net members &times; ${avgMemberValue.toFixed(0)}/month &times; 12 months. This is revenue available from two levers: better conversion AND better retention — both fixable with the right systems.</p>
+        <InsightCard number={`$${((additionalAnnualRevenue ?? 0) / 1000).toFixed(0)}K+`} title="Additional Annual Revenue">
+          <p>{netMembersPerYear ?? 0} net members &times; ${(avgMemberValue ?? 0).toFixed(0)}/month &times; 12 months. This is revenue available from two levers: better conversion AND better retention — both fixable with the right systems.</p>
         </InsightCard>
         <InsightCard number="$0" title="Additional Ad Spend Required">
           <p>This growth comes entirely from converting existing leads better and keeping members longer — not from generating more. The unconverted intros and cancelled members are revenue waiting to be recovered.</p>

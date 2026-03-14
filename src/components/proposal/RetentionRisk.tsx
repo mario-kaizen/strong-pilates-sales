@@ -20,8 +20,8 @@ interface RetentionRiskProps {
 }
 
 export default function RetentionRisk({ suspendedCount, suspendedBreakdown, avgMemberValue, totalCancellations }: RetentionRiskProps) {
-  const revenueAtRisk = suspendedCount * avgMemberValue
-  const formattedRisk = revenueAtRisk >= 1000 ? `$${(revenueAtRisk / 1000).toFixed(1)}K` : `$${revenueAtRisk.toFixed(0)}`
+  const revenueAtRisk = (suspendedCount ?? 0) * (avgMemberValue ?? 0)
+  const formattedRisk = revenueAtRisk >= 1000 ? `$${(revenueAtRisk / 1000).toFixed(1)}K` : `$${(revenueAtRisk ?? 0).toFixed(0)}`
 
   const chartConfig = useMemo<ChartConfiguration>(() => ({
     type: 'bar',
@@ -92,7 +92,7 @@ export default function RetentionRisk({ suspendedCount, suspendedBreakdown, avgM
                 position: 'relative',
               }}
             >
-              {suspendedCount} suspended members = up to ${(revenueAtRisk).toLocaleString()}/month at risk.
+              {suspendedCount ?? 0} suspended members = up to ${(revenueAtRisk ?? 0).toLocaleString()}/month at risk.
             </h3>
             <p
               style={{
@@ -103,7 +103,7 @@ export default function RetentionRisk({ suspendedCount, suspendedBreakdown, avgM
                 maxWidth: '600px',
               }}
             >
-              At an average membership value of ${avgMemberValue.toFixed(0)}/month, every suspended member who doesn&apos;t return is a direct hit to MRR. A simple reactivation campaign targeting these {suspendedCount} people could recover a significant chunk of revenue with zero ad spend.
+              At an average membership value of ${(avgMemberValue ?? 0).toFixed(0)}/month, every suspended member who doesn&apos;t return is a direct hit to MRR. A simple reactivation campaign targeting these {suspendedCount ?? 0} people could recover a significant chunk of revenue with zero ad spend.
             </p>
           </div>
           <div style={{ textAlign: 'right', flexShrink: 0 }}>

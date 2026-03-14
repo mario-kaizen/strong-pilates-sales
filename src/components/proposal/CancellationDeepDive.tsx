@@ -172,8 +172,8 @@ export default function CancellationDeepDive({
         <InsightCard number={`0 of ${totalCancellations}`} title="Cancellations Have a Reason">
           <p>Every single one of the {totalCancellations} cancellations has a blank &ldquo;Cancellation Reason&rdquo; field. This means every member who left did so without the business knowing why. A simple cancellation survey would transform your ability to reduce churn.</p>
         </InsightCard>
-        <InsightCard number={`${churnRate.toFixed(1)}%`} title="Churn Rate">
-          <p>{totalCancellations} of {totalMemberships} total membership records ended in cancellation. Industry benchmark is under 10%. You&apos;re losing a third of the members you work so hard to acquire — and every one represents ${avgMemberValue.toFixed(0)}/month walking out the door.</p>
+        <InsightCard number={`${(churnRate ?? 0).toFixed(1)}%`} title="Churn Rate">
+          <p>{totalCancellations ?? 0} of {totalMemberships ?? 0} total membership records ended in cancellation. Industry benchmark is under 10%. You&apos;re losing a third of the members you work so hard to acquire — and every one represents ${(avgMemberValue ?? 0).toFixed(0)}/month walking out the door.</p>
         </InsightCard>
       </div>
     </SectionWrapper>

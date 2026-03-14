@@ -35,58 +35,58 @@ export default function ConversionFunnel({
   activeIntros,
   activeMemberships,
 }: ConversionFunnelProps) {
-  const neverConvertCount = funnelData.introPurchased - funnelData.convertedToMember
-  const neverConvertPct = funnelData.introPurchased > 0
+  const neverConvertCount = (funnelData.introPurchased ?? 0) - (funnelData.convertedToMember ?? 0)
+  const neverConvertPct = (funnelData.introPurchased ?? 0) > 0
     ? Math.round((neverConvertCount / funnelData.introPurchased) * 100)
     : 0
 
   const steps: FunnelStep[] = [
     {
       label: 'CRM Contacts with Email',
-      value: funnelData.crmContacts,
+      value: funnelData.crmContacts ?? 0,
       source: 'Source: Hapana Grow (excludes IG message contacts without email)',
       color: 'var(--blue)',
       colorLight: 'rgba(74, 111, 165, 0.08)',
     },
     {
       label: 'Account Created',
-      value: funnelData.accountsCreated,
+      value: funnelData.accountsCreated ?? 0,
       source: 'Source: Hapana Core — full unique emails across all records',
       color: 'var(--gold)',
       colorLight: 'rgba(200, 169, 81, 0.15)',
     },
     {
       label: 'Purchased Intro Offer',
-      value: funnelData.introPurchased,
-      source: `Source: Hapana Core — ${funnelData.introPurchased} unique people`,
+      value: funnelData.introPurchased ?? 0,
+      source: `Source: Hapana Core — ${funnelData.introPurchased ?? 0} unique people`,
       color: 'var(--orange)',
       colorLight: 'rgba(212, 133, 58, 0.08)',
     },
     {
       label: 'Converted to Membership',
-      value: funnelData.convertedToMember,
-      source: `${(introConversionRate).toFixed(1)}% conversion rate — ${funnelData.convertedToMember} of ${funnelData.introPurchased} intro buyers became members`,
+      value: funnelData.convertedToMember ?? 0,
+      source: `${(introConversionRate ?? 0).toFixed(1)}% conversion rate — ${funnelData.convertedToMember ?? 0} of ${funnelData.introPurchased ?? 0} intro buyers became members`,
       color: 'var(--green)',
       colorLight: 'rgba(74, 124, 89, 0.08)',
     },
     {
       label: 'Still Active',
-      value: funnelData.stillActive,
-      source: `Of ${funnelData.totalMembershipRecords} total membership records: ${funnelData.stillActive} active, ${funnelData.cancelled} cancelled, ${funnelData.suspended} suspended`,
+      value: funnelData.stillActive ?? 0,
+      source: `Of ${funnelData.totalMembershipRecords ?? 0} total membership records: ${funnelData.stillActive ?? 0} active, ${funnelData.cancelled ?? 0} cancelled, ${funnelData.suspended ?? 0} suspended`,
       color: 'var(--green)',
       colorLight: 'rgba(74, 124, 89, 0.08)',
     },
   ]
 
-  const maxValue = steps[0].value
+  const maxValue = steps[0].value || 1
   const dropOffs = [
-    { pct: funnelData.crmContacts > 0 ? ((1 - funnelData.accountsCreated / funnelData.crmContacts) * 100).toFixed(1) : '0', label: 'lost — never created an account' },
-    { pct: funnelData.accountsCreated > 0 ? ((1 - funnelData.introPurchased / funnelData.accountsCreated) * 100).toFixed(0) : '0', label: "lost — didn't purchase an intro offer" },
-    { pct: funnelData.introPurchased > 0 ? ((1 - funnelData.convertedToMember / funnelData.introPurchased) * 100).toFixed(1) : '0', label: 'lost — never became a member' },
-    { pct: '', label: `${funnelData.cancelled} cancelled \u00B7 ${funnelData.suspended} suspended` },
+    { pct: (funnelData.crmContacts ?? 0) > 0 ? ((1 - (funnelData.accountsCreated ?? 0) / (funnelData.crmContacts ?? 1)) * 100).toFixed(1) : '0', label: 'lost — never created an account' },
+    { pct: (funnelData.accountsCreated ?? 0) > 0 ? ((1 - (funnelData.introPurchased ?? 0) / (funnelData.accountsCreated ?? 1)) * 100).toFixed(0) : '0', label: "lost — didn't purchase an intro offer" },
+    { pct: (funnelData.introPurchased ?? 0) > 0 ? ((1 - (funnelData.convertedToMember ?? 0) / (funnelData.introPurchased ?? 1)) * 100).toFixed(1) : '0', label: 'lost — never became a member' },
+    { pct: '', label: `${funnelData.cancelled ?? 0} cancelled \u00B7 ${funnelData.suspended ?? 0} suspended` },
   ]
 
-  const unrealisedRevenue = neverConvertCount * avgMemberValue
+  const unrealisedRevenue = neverConvertCount * (avgMemberValue ?? 0)
 
   return (
     <SectionWrapper
@@ -281,7 +281,7 @@ export default function ConversionFunnel({
         <InsightCard number={neverConvertCount.toString()} title="People Left on the Table">
           <p>
             {neverConvertCount} people paid for an intro offer and never converted to a membership.
-            At ${avgMemberValue.toFixed(0)}/month avg membership value, that&apos;s{' '}
+            At ${(avgMemberValue ?? 0).toFixed(0)}/month avg membership value, that&apos;s{' '}
             <strong>${(unrealisedRevenue / 1000).toFixed(0)}K+/month</strong> in unrealised recurring revenue sitting in your database right now.
           </p>
         </InsightCard>

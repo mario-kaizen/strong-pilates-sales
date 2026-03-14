@@ -48,7 +48,7 @@ export default function MembershipValue({
   midTierCount = 0,
   midTierUpgradeValue = 0,
 }: MembershipValueProps) {
-  const totalMembers = memberTiers.reduce((sum, t) => sum + t.count, 0)
+  const totalMembers = (memberTiers || []).reduce((sum, t) => sum + (t.count ?? 0), 0) || 1
 
   const countConfig = useMemo<ChartConfiguration>(() => ({
     type: 'doughnut',
@@ -180,11 +180,11 @@ export default function MembershipValue({
                 {lowTierCount} members ({Math.round(lowTierCount / activeMemberships * 100)}%) are paying under $100/month.
               </h3>
               <p style={{ fontSize: '15px', color: 'rgba(250, 247, 242, 0.7)', lineHeight: 1.8, position: 'relative', maxWidth: '600px' }}>
-                These {lowTierCount} members contribute just ${lowTierRevenue.toLocaleString()}/month — only {lowTierRevenuePct.toFixed(1)}% of your total MRR. The opportunity isn&apos;t just <em>more</em> members — it&apos;s more members on the <strong>right plans</strong>.
+                These {lowTierCount ?? 0} members contribute just ${(lowTierRevenue ?? 0).toLocaleString()}/month — only {(lowTierRevenuePct ?? 0).toFixed(1)}% of your total MRR. The opportunity isn&apos;t just <em>more</em> members — it&apos;s more members on the <strong>right plans</strong>.
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <div style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '72px', fontWeight: 700, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px', position: 'relative' }}>{lowTierRevenuePct.toFixed(1)}%</div>
+              <div style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '72px', fontWeight: 700, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px', position: 'relative' }}>{(lowTierRevenuePct ?? 0).toFixed(1)}%</div>
               <div style={{ fontSize: '14px', color: 'rgba(250, 247, 242, 0.5)', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 600, position: 'relative' }}>Revenue from under-$100 members</div>
             </div>
           </div>

@@ -29,9 +29,9 @@ export default function Snapshot({
   totalCancellations,
   totalMemberships,
 }: SnapshotProps) {
-  const formattedMrr = totalMrr >= 1000
-    ? `$${(totalMrr / 1000).toFixed(1)}K`
-    : `$${totalMrr.toFixed(0)}`
+  const formattedMrr = (totalMrr ?? 0) >= 1000
+    ? `$${((totalMrr ?? 0) / 1000).toFixed(1)}K`
+    : `$${(totalMrr ?? 0).toFixed(0)}`
 
   return (
     <SectionWrapper
@@ -53,7 +53,7 @@ export default function Snapshot({
         <StatCard label="Active Packages" value={totalPackages} sub="Class packs, casuals, etc." />
         <StatCard
           label="Cancellation Rate"
-          value={`${churnRate.toFixed(1)}%`}
+          value={`${(churnRate ?? 0).toFixed(1)}%`}
           sub={`${totalCancellations} of ${totalMemberships} memberships cancelled`}
           variant="danger"
         />
