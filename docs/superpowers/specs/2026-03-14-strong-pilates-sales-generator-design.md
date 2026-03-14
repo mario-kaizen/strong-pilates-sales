@@ -39,6 +39,7 @@ List of all prospects. Each row shows:
 - Key stats preview: active members, MRR, intro conversion rate
 - Link to proposal page
 - Created date
+- Delete action (with confirmation)
 
 Actions: "New Prospect" button.
 
@@ -46,19 +47,23 @@ Actions: "New Prospect" button.
 
 Multi-step form with 5 steps. Progress indicator at top.
 
+**Wizard lifecycle:** Prospect record is created in `draft` status when Step 1 is completed. All subsequent uploads are attached to this prospect ID. This allows partial progress — you can complete Step 1-3 and come back later.
+
 **Step 1 — Location Details**
 - Location name (text input)
 - City, country, address (text inputs)
 - GHL Location ID (text input)
 - GHL PIT (text input, masked)
-- Approximate opening date (date picker)
+- Approximate opening date (date picker — required, used to split presale/operating periods)
 - Slug (auto-generated from location name, editable)
+- On completion: `POST /api/prospects` creates draft record, returns prospect ID
 
 **Step 2 — Call Transcript**
 - Toggle: "Paste text" or "Upload file"
 - Text area (paste mode): placeholder "Paste your sales call notes or transcript here. Include the challenges they mentioned and your diagnosis."
 - File upload (upload mode): accepts `.txt` files
 - Either input is sufficient
+- On completion: saves transcript text to prospect record
 
 **Step 3 — Hapana Core**
 - Drag-and-drop zone accepting multiple CSV files (1-3)
@@ -72,11 +77,12 @@ Multi-step form with 5 steps. Progress indicator at top.
   Upload any combination — we'll detect what's in each file
   from the Package Status column.
   ```
+- Files are processed in-memory on upload — raw CSV data is not persisted, only the extracted metrics
 - As files are dropped, show processing status:
   - "Active records: 1,579 rows found"
   - "Cancelled records: 230 rows found"
   - "Completed records: 1,089 rows found"
-- Validation: must have at least one file with recognisable columns
+- Validation: must have at least one file with recognisable columns (`Package Status`, `Package Category`, etc.)
 
 **Step 4 — Meta Ads**
 - Single file drag-and-drop zone
@@ -93,6 +99,7 @@ Multi-step form with 5 steps. Progress indicator at top.
   Tip: Make sure "Result Indicator" is included — this tells us
   what Meta counted as a "result" each month, which changes over time.
   ```
+- File processed in-memory — raw CSV not persisted
 - Processing status shows: total spend, date range, number of campaigns detected
 
 **Step 5 — Review & Generate**
@@ -103,33 +110,39 @@ Multi-step form with 5 steps. Progress indicator at top.
   - Transcript: X words / characters
 - "Generate Proposal" button
 - Processing state: spinner with status messages ("Analysing transcript...", "Processing Hapana data...", "Pulling GHL contacts...", "Building proposal...")
-- On completion: redirect to `/[slug]`
+- On completion: status set to `ready`, redirect to `/[slug]`
 
 ### 3. Proposal Page (`/[slug]`)
 
-Public-facing proposal page. Same 14-section structure as the current `strong-the-beach-to-report.html`, rendered dynamically from stored data.
+Public-facing proposal page rendered dynamically from stored data.
 
-**Sections:**
-1. Hero + location details
-2. Snapshot (8 stat cards)
-3. The Core Problem (conversion funnel)
-4. Month-by-Month Activity (pipeline chart + sub-charts)
-5. Revenue (MRR breakdown, plan table)
-6. Intro Offer Analysis (offer complexity)
-7. Retention Risk (suspended members)
-8. Cancellation Deep-Dive (monthly cancellations, net growth)
-9. The Real Cost (ad spend analysis, period breakdown, campaign chart)
-10. Membership Value (tier analysis, STRONG 4 callout)
-11. The Opportunity (projection based on actual conversion + churn rates)
-12. Case Study: STRONG Kelowna (static for now)
-13. The 12-Week Pathway (mostly static, with prospect-specific numbers injected)
-14. How We Work + Next Steps (static DWY offer)
+**Canonical section list (15 sections):**
+
+| # | Section | Component | Dynamic/Static |
+|---|---------|-----------|----------------|
+| — | Hero | `Hero.tsx` | Dynamic (location name, date, data sources) |
+| 01 | Snapshot | `Snapshot.tsx` | Dynamic (all stat cards) |
+| 02 | The Core Problem | `ConversionFunnel.tsx` | Dynamic (funnel numbers, conversion rates) |
+| 03 | Month-by-Month Activity | `MonthlyActivity.tsx` | Dynamic (all monthly charts) |
+| 04 | Revenue | `Revenue.tsx` | Dynamic (MRR breakdown, plan table) |
+| 05 | Intro Offer Analysis | `IntroOfferAnalysis.tsx` | Dynamic (offer types, complexity) |
+| 06 | Retention Risk | `RetentionRisk.tsx` | Dynamic (suspended count, at-risk revenue) |
+| 07 | Cancellation Deep-Dive | `CancellationDeepDive.tsx` | Dynamic (monthly cancellations, net growth, reasons) |
+| 08 | The Real Cost | `RealCost.tsx` | Dynamic (ad spend, CPL, cost per intro, period breakdown) |
+| 09 | Membership Value | `MembershipValue.tsx` | Dynamic (tier analysis, plan value chart) |
+| 10 | The Opportunity | `Opportunity.tsx` | Dynamic (projections based on actual rates) |
+| 11 | Case Study: Kelowna | `CaseStudyKelowna.tsx` | Static (same data for all proposals) |
+| 12 | The 12-Week Pathway | `TwelveWeekPathway.tsx` | Semi-static (prospect-specific numbers injected into template) |
+| 13 | How We Work | `HowWeWork.tsx` | Static ($300/week DWY offer) |
+| 14 | Next Steps | `NextSteps.tsx` | Static (CTA) |
+
+The Hero is not numbered in the proposal — sections 01-14 are the numbered content.
 
 Design system: Kaizen (Playfair Display + DM Sans, cream/ink/gold palette). Mobile responsive. Chart.js for all charts.
 
 ### 4. Edit Prospect (`/[slug]/edit`)
 
-Simple form to update location details or re-upload files. Allows regenerating the proposal with updated data without creating a new prospect.
+Simple form to update location details or re-upload files. Re-uploading triggers reprocessing. Allows regenerating the proposal with updated data without creating a new prospect.
 
 ---
 
@@ -145,7 +158,7 @@ model Prospect {
   address       String   @default("")
   ghlLocationId String   @default("")
   ghlPit        String   @default("")
-  openingDate   DateTime?
+  openingDate   DateTime // Required — used for presale/operating split
   status        String   @default("draft") // draft, processing, ready, sent
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -172,7 +185,7 @@ model ProspectData {
   activeMemberships  Int @default(0)
   activeIntros       Int @default(0)
   suspendedCount     Int @default(0)
-  uniqueIntrobuyers  Int @default(0)
+  uniqueIntroBuyers  Int @default(0)
   uniqueMemberHolders Int @default(0)
   introConversionRate Float @default(0)
   churnRate          Float @default(0)
@@ -230,12 +243,12 @@ model Upload {
 
 ### 1. Hapana Core Processing (`lib/processors/hapana.ts`)
 
-Input: 1-3 CSV files (any combination of active/cancelled/completed).
+Input: 1-3 CSV files (any combination of active/cancelled/completed). Files are processed in-memory — raw CSVs are not persisted to disk. Only extracted metrics are stored in the database.
 
 Processing steps:
 1. Parse each CSV, detect content by `Package Status` column values
 2. Combine all rows into unified dataset
-3. For each row, parse: `Full Name`, `Email`, `Package Name`, `Package Type`, `Package Category`, `Package Price`, `Package Status`, `Date Sold`, `Member Created Date`, `Cancel Date`, `Member Inactive Date`
+3. For each row, parse: `Full Name`, `Email`, `Package Name`, `Package Type`, `Package Category`, `Package Price`, `Package Status`, `Date Sold`, `Member Created Date`, `Cancel Date`, `Member Inactive Date`, `Cancellation Reason`
 4. Date parsing: handle `DD/MM/YYYY` format (Hapana's format)
 5. Price parsing: strip `$` and `,`, parse as float
 
@@ -248,7 +261,7 @@ Computed metrics:
 - Intro offer breakdown by name: count per type
 - Suspended breakdown by plan
 - Membership tier analysis: Premium ($196+), Mid ($100-195), Low (under $100)
-- Cancellation reasons (from `Cancellation Reason` column)
+- Cancellation reasons (from `Cancellation Reason` column — expect most to be empty based on observed data)
 - MRR: sum of active membership prices
 
 ### 2. Meta Ads Processing (`lib/processors/meta-ads.ts`)
@@ -256,7 +269,7 @@ Computed metrics:
 Input: Single CSV from Meta Ads Manager.
 
 Processing steps:
-1. Parse CSV with columns: `Reporting starts`, `Reporting ends`, `Campaign name`, `Results`, `Result indicator`, `Amount spent (CAD)`, `Impressions`, `Link clicks`, `Leads`, `Purchases`, `Landing page views`
+1. Parse CSV. Match column headers by prefix (e.g., `Amount spent` not `Amount spent (CAD)`) to handle different currencies (CAD, AUD, USD, etc.)
 2. Group by month (from `Reporting starts`)
 3. For each month, sum: spend, leads (from `Leads` column), impressions, clicks, purchases, landing page views
 4. Classify results by `Result indicator`:
@@ -265,11 +278,11 @@ Processing steps:
    - `actions:offsite_conversion.custom.*` = custom pixel events
    - `actions:omni_landing_page_view` = NOT leads (exclude from lead counts)
 5. Real leads = lead forms + pixel leads + custom events (exclude LPV)
-6. Split into periods based on prospect's opening date:
+6. Split into periods based on prospect's `openingDate`:
    - Presale: before opening month
    - Opening: the opening month
    - Operating: after opening month
-7. Calculate operating CPL, cost per intro (using Hapana intro count)
+7. Calculate operating CPL, cost per intro (using Hapana intro count from operating period)
 8. Group campaigns by type (presale, conversion, lead form, traffic, other)
 
 ### 3. GHL Contact Pull (`lib/processors/ghl.ts`)
@@ -277,10 +290,11 @@ Processing steps:
 Input: GHL Location ID + PIT.
 
 Processing steps:
-1. Paginate through all contacts via GHL API (`/contacts/?locationId=X&limit=100`)
-2. Filter to contacts with a non-empty email
-3. Group by month (from `dateAdded`)
-4. Store: total contacts, contacts with email, monthly breakdown
+1. Paginate through all contacts via GHL API: `GET https://services.leadconnectorhq.com/contacts/?locationId={locationId}&limit=100` with `Authorization: Bearer {PIT}` header and `Version: 2021-07-28` header
+2. Pagination: use `nextPageUrl` from the `meta` object in each response (cursor-based via `startAfter` and `startAfterId`)
+3. Filter to contacts with a non-null, non-empty email field
+4. Group by month (from `dateAdded`)
+5. Store: total contacts, contacts with email, monthly breakdown
 
 Rate limiting: 100ms delay between pages to avoid API throttling.
 
@@ -307,7 +321,7 @@ Return as JSON: { challenges: string[], blindspots: string[], recommendations: s
 
 Takes all processed data and generates the `ProspectData` record with all JSON fields populated. This is a pure computation step — no AI, just data transformation and calculation.
 
-The proposal page (`/[slug]`) reads from this record and renders the 14-section template with the data injected.
+The proposal page (`/[slug]`) reads from this record and renders the template with the data injected.
 
 ---
 
@@ -315,8 +329,8 @@ The proposal page (`/[slug]`) reads from this record and renders the 14-section 
 
 The proposal page is a React Server Component that:
 1. Fetches the prospect + data + diagnosis from the database
-2. Renders the 14-section layout with Kaizen design system
-3. Injects Chart.js charts via a client component wrapper
+2. Renders the 15-component layout (Hero + 14 numbered sections) with Kaizen design system
+3. Injects Chart.js charts via a client component wrapper (`ChartWrapper.tsx`)
 4. Responsive (mobile + desktop)
 
 The current `strong-the-beach-to-report.html` is the reference implementation. The React version follows the same structure, styles, and chart configurations — just with dynamic data instead of hardcoded values.
@@ -343,18 +357,18 @@ strong-pilates-sales/
 │   │   │       └── page.tsx        # Edit prospect
 │   │   └── api/
 │   │       ├── prospects/
-│   │       │   ├── route.ts        # POST: create prospect
+│   │       │   ├── route.ts        # GET: list, POST: create prospect
 │   │       │   └── [id]/
-│   │       │       ├── route.ts    # PATCH: update prospect
+│   │       │       ├── route.ts    # GET: single, PATCH: update, DELETE: remove
 │   │       │       └── generate/
-│   │       │           └── route.ts # POST: trigger processing
+│   │       │           └── route.ts # POST: trigger processing pipeline
 │   │       ├── upload/
-│   │       │   └── route.ts        # POST: file upload handler
+│   │       │   └── route.ts        # POST: file upload + in-memory processing
 │   │       └── ghl/
 │   │           └── test/
 │   │               └── route.ts    # POST: test GHL PIT connection
 │   ├── components/
-│   │   ├── proposal/               # All 14 proposal sections as components
+│   │   ├── proposal/               # Hero + 14 numbered proposal sections
 │   │   │   ├── Hero.tsx
 │   │   │   ├── Snapshot.tsx
 │   │   │   ├── ConversionFunnel.tsx
@@ -395,6 +409,8 @@ strong-pilates-sales/
 │       └── db.ts                   # Prisma client
 ├── prisma/
 │   └── schema.prisma
+├── data/                           # SQLite database lives here (Docker volume mount)
+│   └── .gitkeep
 ├── public/
 │   └── fonts/                      # Playfair Display + DM Sans
 ├── docs/
@@ -411,9 +427,10 @@ strong-pilates-sales/
 
 - **Coolify** on existing DigitalOcean droplet (`170.64.153.122`)
 - **Domain:** `strong.kaizencollective.com.au`
-- **DNS:** A record `strong` → `170.64.153.122` in Cloudflare
+- **DNS:** A record `strong` → `170.64.153.122` in Cloudflare (Full SSL mode)
 - **Docker:** Multi-stage build (Node alpine)
-- **Environment variables:** `DATABASE_URL` (SQLite path), `ANTHROPIC_API_KEY`
+- **Persistent volume:** Mount `/app/data` to a Coolify persistent storage volume for the SQLite database file. `DATABASE_URL=file:/app/data/strong-pilates-sales.db`
+- **Environment variables:** `DATABASE_URL`, `ANTHROPIC_API_KEY`
 - **Auto-deploy on push to main**
 
 ---
