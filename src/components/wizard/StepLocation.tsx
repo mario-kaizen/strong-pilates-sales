@@ -62,7 +62,43 @@ export default function StepLocation({ onNext }: StepLocationProps) {
   })
   const [slugEdited, setSlugEdited] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [fetching, setFetching] = useState(false)
   const [error, setError] = useState('')
+
+  const fetchFromGhl = async () => {
+    if (!form.ghlLocationId || !form.ghlPit) return
+    setFetching(true)
+    setError('')
+    try {
+      const res = await fetch(`https://services.leadconnectorhq.com/locations/${form.ghlLocationId}`, {
+        headers: {
+          'Authorization': `Bearer ${form.ghlPit}`,
+          'Version': '2021-07-28',
+          'Accept': 'application/json',
+        },
+      })
+      if (!res.ok) throw new Error('Could not connect — check Location ID and PIT')
+      const data = await res.json()
+      const loc = data.location || {}
+      const name = loc.name || ''
+      const city = loc.city || ''
+      const country = loc.country || ''
+      const address = [loc.address, loc.city, loc.state, loc.postalCode].filter(Boolean).join(', ')
+
+      setForm(prev => ({
+        ...prev,
+        locationName: name || prev.locationName,
+        city: city || prev.city,
+        country: country || prev.country,
+        address: address || prev.address,
+        slug: !slugEdited && name ? toSlug(name) : prev.slug,
+      }))
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to fetch location details')
+    } finally {
+      setFetching(false)
+    }
+  }
 
   const set = (field: keyof LocationData, value: string) => {
     setForm((prev) => {
@@ -204,18 +240,45 @@ export default function StepLocation({ onNext }: StepLocationProps) {
           />
         </div>
 
+        {/* Fetch from GHL button */}
+        {form.ghlLocationId && form.ghlPit && (
+          <div style={{ gridColumn: '1 / -1' }}>
+            <button
+              type="button"
+              onClick={fetchFromGhl}
+              disabled={fetching}
+              style={{
+                padding: '0.5rem 1.25rem',
+                backgroundColor: 'var(--gold-glow)',
+                color: 'var(--gold-dark)',
+                border: '1px solid rgba(200,169,81,0.3)',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: fetching ? 'not-allowed' : 'pointer',
+                fontFamily: 'var(--font-dm-sans), sans-serif',
+              }}
+            >
+              {fetching ? 'Fetching...' : 'Auto-fill from Hapana Grow →'}
+            </button>
+            <span style={{ fontSize: '0.72rem', color: 'var(--ink-muted)', marginLeft: '0.75rem' }}>
+              Pulls location name, address, city from the PIT
+            </span>
+          </div>
+        )}
+
         {/* Opening Date */}
         <div>
-          <label style={labelStyle}>
-            Opening Date <span style={{ color: 'var(--red)' }}>*</span>
-          </label>
+          <label style={labelStyle}>Opening Date</label>
           <input
             style={inputStyle}
             type="date"
-            required
             value={form.openingDate}
             onChange={(e) => set('openingDate', e.target.value)}
           />
+          <p style={{ fontSize: '0.72rem', color: 'var(--ink-muted)', marginTop: '0.3rem' }}>
+            Optional — we&apos;ll auto-detect from ads and membership data
+          </p>
         </div>
 
         {/* Slug */}

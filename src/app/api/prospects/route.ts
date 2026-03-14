@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json()
   const { locationName, city, country, address, ghlLocationId, ghlPit, openingDate, slug } = body
 
-  if (!locationName || !city || !country || !openingDate || !slug) {
+  if (!locationName || !city || !country || !slug) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       address: address || '',
       ghlLocationId: ghlLocationId || '',
       ghlPit: ghlPit || '',
-      openingDate: new Date(openingDate),
+      openingDate: openingDate ? new Date(openingDate) : null,
       slug,
       status: 'draft',
     },

@@ -15,7 +15,7 @@ model Prospect {
   address       String   @default("")
   ghlLocationId String   @default("")
   ghlPit        String   @default("")
-  openingDate   DateTime
+  openingDate   DateTime?
   status        String   @default("draft")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

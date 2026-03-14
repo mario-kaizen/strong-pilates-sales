@@ -85,7 +85,21 @@ export async function generateProposalData(
     })()
 
   if (metaAdsCsvContent.trim()) {
-    metaAdsResult = processMetaAdsCsv(metaAdsCsvContent, prospect.openingDate)
+    // Auto-detect opening date if not provided
+    // Heuristic: first month with memberships sold in Hapana data, or first month with leads in Meta
+    let openingDate = prospect.openingDate
+    if (!openingDate && hapanaResult) {
+      const months = Object.keys(hapanaResult.monthlyData).sort()
+      const firstMemberMonth = months.find(m => hapanaResult!.monthlyData[m].memberships > 0)
+      if (firstMemberMonth) {
+        openingDate = new Date(firstMemberMonth + '-01')
+      }
+    }
+    if (!openingDate) {
+      // Fallback: treat everything as operating period
+      openingDate = new Date('2000-01-01')
+    }
+    metaAdsResult = processMetaAdsCsv(metaAdsCsvContent, openingDate)
   }
 
   // ── 4. Pull GHL contacts (optional) ───────────────────────────────────────
