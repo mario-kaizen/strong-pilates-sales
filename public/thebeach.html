@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRONG Pilates — The Beach TO | Business Diagnostic</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+// Fallback: if Chart.js didn't load from CDN, load local copy
+if (typeof Chart === 'undefined') {
+  document.write('<script src="chart.min.js"><\/script>');
+}
+</script>
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --cream-dark: #F0EBE3;
+    --ink: #1A1A1A;
+    --ink-light: #3D3D3D;
+    --ink-muted: #6B6B6B;
+    --gold: #C8A951;
+    --gold-light: #D4BC72;
+    --gold-dark: #A88B3A;
+    --gold-glow: rgba(200, 169, 81, 0.15);
+    --red: #C44536;
+    --red-light: rgba(196, 69, 54, 0.08);
+    --red-glow: rgba(196, 69, 54, 0.12);
+    --green: #4A7C59;
+    --green-light: rgba(74, 124, 89, 0.08);
+    --orange: #D4853A;
+    --orange-light: rgba(212, 133, 58, 0.08);
+    --blue: #4A6FA5;
+    --blue-light: rgba(74, 111, 165, 0.08);
+    --purple: #7B5EA7;
+    --purple-light: rgba(123, 94, 167, 0.15);
+    --divider: rgba(26, 26, 26, 0.08);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 50px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100vw; right: -100vw;
+    height: 100%;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 50%, var(--cream) 100%);
+    z-index: -1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-glow);
+    border: 1px solid rgba(200, 169, 81, 0.25);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    color: var(--ink-muted);
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-meta strong {
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* ── Section ── */
+  .section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--ink-muted);
+    max-width: 640px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  /* ── Stat Cards ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--divider);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stat-card:hover::after { opacity: 1; }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .stat-card.danger .stat-value { color: var(--red); }
+  .stat-card.danger { background: var(--red-light); border-color: rgba(196, 69, 54, 0.12); }
+  .stat-card.success .stat-value { color: var(--green); }
+  .stat-card.success { background: var(--green-light); border-color: rgba(74, 124, 89, 0.12); }
+  .stat-card.warning .stat-value { color: var(--orange); }
+  .stat-card.warning { background: var(--orange-light); border-color: rgba(212, 133, 58, 0.12); }
+
+  /* ── Chart Container ── */
+  .chart-wrap {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--divider);
+    margin-bottom: 24px;
+  }
+  .chart-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .chart-wrap .chart-subtitle {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ── Funnel ── */
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 32px auto;
+    max-width: 700px;
+  }
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 0;
+    position: relative;
+  }
+  .funnel-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 40px;
+    bottom: -1px;
+    width: 2px;
+    height: 24px;
+    background: var(--divider);
+    z-index: 1;
+  }
+  .funnel-bar-wrap { flex: 1; }
+  .funnel-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .funnel-bar-label span:first-child {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .funnel-bar-label span:last-child {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .funnel-bar {
+    height: 40px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .funnel-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .funnel-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .funnel-drop {
+    text-align: center;
+    padding: 8px 0;
+    margin-left: 64px;
+  }
+  .funnel-drop-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--red-light);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--red-glow);
+  }
+
+  /* ── Callout Box ── */
+  .callout {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: var(--radius-lg);
+    padding: 40px 48px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .callout h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .callout p {
+    font-size: 15px;
+    color: rgba(250, 247, 242, 0.7);
+    line-height: 1.8;
+    position: relative;
+    max-width: 600px;
+  }
+  .callout .callout-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .callout .callout-stat-label {
+    font-size: 14px;
+    color: rgba(250, 247, 242, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    position: relative;
+  }
+  .callout-flex {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .callout-left { flex: 1; }
+  .callout-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── Table ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .data-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-muted);
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--divider);
+  }
+  .data-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--divider);
+    vertical-align: middle;
+  }
+  .data-table tbody tr:hover {
+    background: rgba(200, 169, 81, 0.04);
+  }
+  .data-table .plan-name { font-weight: 600; }
+  .data-table .plan-revenue {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .data-table .plan-bar { width: 120px; }
+  .data-table .plan-bar-inner {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--gold);
+    transition: width 1s ease;
+  }
+
+  /* ── Insight Rows ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .insight-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-sm);
+  }
+  .insight-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .insight-card .insight-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 12px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+
+  /* ── Animations ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Fallback: ensure content is visible even if IntersectionObserver fails */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; }
+  }
+
+  /* ── Chart containers need explicit height ── */
+  .chart-container {
+    position: relative;
+    width: 100%;
+  }
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .page { padding: 0 20px; }
+    .hero { padding: 48px 0 36px; }
+    .hero h1 { font-size: 32px; }
+    .hero-sub { font-size: 15px; }
+    .hero-meta { flex-direction: column; gap: 8px; font-size: 12px; }
+
+    .section { padding: 36px 0; }
+    .section-title { font-size: 24px; }
+    .section-desc { font-size: 14px; }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .stat-card { padding: 16px; }
+    .stat-value { font-size: 28px; }
+    .stat-label { font-size: 10px; }
+    .stat-sub { font-size: 11px; }
+
+    .chart-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .chart-wrap { padding: 20px; border-radius: 14px; }
+    .chart-wrap h3 { font-size: 17px; }
+
+    .insight-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .insight-card { padding: 18px; }
+    .insight-card .insight-number { font-size: 24px; }
+
+    .callout { padding: 24px 20px; border-radius: 14px; }
+    .callout h3 { font-size: 20px; }
+    .callout p { font-size: 13px; }
+    .callout-flex { flex-direction: column; gap: 20px; }
+    .callout-right { text-align: left; }
+    .callout .callout-stat { font-size: 48px; }
+
+    .funnel { max-width: 100%; }
+    .funnel-step { gap: 12px; }
+    .funnel-icon { width: 32px; height: 32px; font-size: 14px; }
+    .funnel-bar-label span:last-child { font-size: 18px; }
+    .funnel-drop { margin-left: 44px; }
+
+    .data-table { font-size: 12px; }
+    .data-table thead th { padding: 8px 10px; font-size: 9px; }
+    .data-table tbody td { padding: 10px; }
+    .data-table .plan-bar { display: none; }
+
+    /* Timeline phases - force single column on mobile */
+    .chart-wrap div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    .chart-wrap div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .stat-value { font-size: 24px; }
+    .callout .callout-stat { font-size: 36px; }
+  }
+
+  
+
+  /* ── Chart Annotation Note ── */
+  .chart-note {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(200, 169, 81, 0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .chart-note strong {
+    color: var(--ink-light);
+  }
+
+  /* ── Needs List (checkmark styling) ── */
+  .needs-list {
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0;
+  }
+  .needs-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 6px;
+    color: var(--ink-muted);
+  }
+  .needs-list li::before {
+    content: '\2610';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    .page { padding: 0 20px; }
+    .hero { padding: 40px 0 30px; }
+    .section { padding: 30px 0; }
+    .stat-value { font-size: 28px; }
+    .callout { break-inside: avoid; }
+    .chart-wrap { break-inside: avoid; }
+    .fade-in { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <div class="hero-badge">Business Diagnostic</div>
+    <h1>STRONG Pilates<br><em>The Beach TO</em></h1>
+    <p class="hero-sub">A data-driven analysis of your current business health, revenue leaks, and untapped opportunity.</p>
+    <div class="hero-meta">
+      <span><strong>Location</strong>&ensp;1939 Queen Street East, Toronto ON</span>
+      <span><strong>Report Date</strong>&ensp;March 14, 2026</span>
+      <span><strong>Data Sources</strong>&ensp;Hapana Core + Hapana Grow</span>
+    </div>
+  </div>
+
+
+
+  <!-- Executive Summary -->
+  <div class="section fade-in" id="section-01">
+    <div class="section-label">01 — Snapshot</div>
+    <div class="section-title">Where You Stand Today</div>
+    <div class="section-desc">A high-level view of your current membership base, revenue, and the intro offer pipeline.</div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Active Members</div>
+        <div class="stat-value">246</div>
+        <div class="stat-sub">Recurring memberships</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Monthly Revenue</div>
+        <div class="stat-value">$40.7K</div>
+        <div class="stat-sub">Membership MRR only</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-label">Active Intro Offers</div>
+        <div class="stat-value">223</div>
+        <div class="stat-sub">Currently unconverted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Suspended</div>
+        <div class="stat-value">59</div>
+        <div class="stat-sub">At risk of cancelling</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Unique Members (All Time)</div>
+        <div class="stat-value">547</div>
+        <div class="stat-sub">702 total membership records</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="stat-label">Memberships Cancelled</div>
+        <div class="stat-value">230</div>
+        <div class="stat-sub">Zero cancellation reasons logged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Packages</div>
+        <div class="stat-value">870</div>
+        <div class="stat-sub">Class packs, casuals, etc.</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="stat-label">Cancellation Rate</div>
+        <div class="stat-value">32.8%</div>
+        <div class="stat-sub">230 of 702 memberships cancelled</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Conversion Leak -->
+  <div class="section fade-in" id="section-02">
+    <div class="section-label">02 — The Core Problem</div>
+    <div class="section-title">The Intro Offer Conversion Leak</div>
+    <div class="section-desc">This is where the real problem lives. You're generating intro offer sales — but the vast majority never convert to paying members. The bucket has a hole in the bottom.</div>
+
+    <div class="callout">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>282 people bought an intro offer and never became a member. 230 members cancelled — and nobody knows why.</h3>
+          <p>Your business has two compounding leaks. Over half of intro buyers never convert to a membership. And of the ones who do, a third eventually cancel — with zero reasons logged. You can't fix churn you can't see.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat">56%</div>
+          <div class="callout-stat-label">Never Convert to Member</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Funnel Visualization -->
+    <div class="chart-wrap">
+      <h3>The Conversion Funnel</h3>
+      <div class="chart-subtitle">From Hapana Grow contact to paying member — where the drop-off happens</div>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="funnel-icon" style="background: var(--blue-light); color: var(--blue);">1</div>
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar-label">
+              <span>CRM Contacts with Email</span>
+              <span>5,748</span>
+            </div>
+            <div class="funnel-bar" style="background: var(--blue-light);">
+              <div class="funnel-bar-fill" style="width: 100%; background: var(--blue);"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--ink-muted); margin-top: 4px;">Source: Hapana Grow (excludes IG message contacts without email)</div>
+          </div>
+        </div>
+
+        <div class="funnel-drop">
+          <span class="funnel-drop-value">&darr; 72.6% lost — never created an account</span>
+        </div>
+
+        <div class="funnel-step">
+          <div class="funnel-icon" style="background: var(--gold-glow); color: var(--gold-dark);">2</div>
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar-label">
+              <span>Account Created</span>
+              <span>1,574</span>
+            </div>
+            <div class="funnel-bar" style="background: var(--gold-glow);">
+              <div class="funnel-bar-fill" style="width: 27.4%; background: var(--gold);"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--ink-muted); margin-top: 4px;">Source: Hapana Core — full unique emails across all records</div>
+          </div>
+        </div>
+
+        <div class="funnel-drop">
+          <span class="funnel-drop-value">&darr; 68% lost — didn't purchase an intro offer</span>
+        </div>
+
+        <div class="funnel-step">
+          <div class="funnel-icon" style="background: var(--orange-light); color: var(--orange);">3</div>
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar-label">
+              <span>Purchased Intro Offer</span>
+              <span>504</span>
+            </div>
+            <div class="funnel-bar" style="background: var(--orange-light);">
+              <div class="funnel-bar-fill" style="width: 8.8%; background: var(--orange);"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--ink-muted); margin-top: 4px;">Source: Hapana Core — 504 unique people (547 total records incl. cancelled/completed)</div>
+          </div>
+        </div>
+
+        <div class="funnel-drop">
+          <span class="funnel-drop-value">&darr; 70.4% lost — never became a member</span>
+        </div>
+
+        <div class="funnel-step">
+          <div class="funnel-icon" style="background: var(--green-light); color: var(--green);">4</div>
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar-label">
+              <span>Converted to Membership</span>
+              <span style="color: var(--green);">149</span>
+            </div>
+            <div class="funnel-bar" style="background: var(--green-light);">
+              <div class="funnel-bar-fill" style="width: 2.6%; background: var(--green);"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--ink-muted); margin-top: 4px;">29.6% conversion rate — 149 of 504 intro buyers became members</div>
+          </div>
+        </div>
+
+        <div class="funnel-drop">
+          <span class="funnel-drop-value">&darr; 230 cancelled &middot; 59 suspended</span>
+        </div>
+
+        <div class="funnel-step">
+          <div class="funnel-icon" style="background: var(--green-light); color: var(--green);">5</div>
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar-label">
+              <span>Still Active</span>
+              <span style="color: var(--green);">246</span>
+            </div>
+            <div class="funnel-bar" style="background: var(--green-light);">
+              <div class="funnel-bar-fill" style="width: 4.3%; background: var(--green);"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--ink-muted); margin-top: 4px;">Of 702 total membership records: 246 active, 230 cancelled, 59 suspended, 167 other</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-number">282</div>
+        <h4>People Left on the Table</h4>
+        <p>282 people paid for an intro offer and never converted to a membership. At $165/month avg membership value, that's <strong>$46,500+/month</strong> in unrealised recurring revenue sitting in your database right now.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number">223</div>
+        <h4>Sitting in Intro Offers Right Now</h4>
+        <p>Almost as many people are sitting in active intro offers as you have actual members (246). These are warm, paying prospects who need nurture — not more ads.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly Activity Overview -->
+  <div class="section fade-in" id="section-03">
+    <div class="section-label">03 — The Full Picture</div>
+    <div class="section-title">Month-by-Month Activity</div>
+    <div class="section-desc">Every stage of the customer journey tracked month over month — from first contact to membership purchase. This is the complete pipeline view.</div>
+
+    <div class="chart-wrap">
+      <h3>Complete Pipeline — Month by Month</h3>
+      <div class="chart-subtitle">December 2024 — March 2026 (current month partial) &middot; Hapana Grow + Hapana Core</div>
+      <div class="chart-container" style="height: 360px;"><canvas id="fullPipelineChart"></canvas></div>
+      <div class="chart-note">
+        <strong>Data context:</strong> Dec 2024 (135 intros) and Jan 2025 (244 intros) reflect the grand opening rush. The normalised ongoing rate is 4-34 intros/month. Sep 2025 shows 133 memberships — this appears to be a bulk migration or promotional event, not organic growth. The ongoing monthly average is ~35.
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-wrap">
+        <h3>Contacts Created vs. Accounts Created</h3>
+        <div class="chart-subtitle">The gap between CRM contacts (Grow) and actual accounts (Core)</div>
+        <div class="chart-container" style="height: 240px;"><canvas id="contactsVsAccountsChart"></canvas></div>
+      </div>
+      <div class="chart-wrap">
+        <h3>Purchases by Category</h3>
+        <div class="chart-subtitle">Intro Offers vs. Memberships vs. Packages (Hapana Core)</div>
+        <div class="chart-container" style="height: 240px;"><canvas id="purchasesByCategoryChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-number">577 &rarr; 126</div>
+        <h4>Contact Volume Declining</h4>
+        <p>CRM contacts with email peaked at 577 in Jan 2025 and have dropped to 126 (partial March 2026). But <strong>volume isn't the problem</strong> — conversion is. 80% of contacts never even create an account.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number">168 &rarr; 24</div>
+        <h4>Account Creation Falling</h4>
+        <p>New Hapana Core accounts peaked at 196 (Dec 2024 launch) and have dropped to 24 this month. Fewer people are making it from contact to account — the top of the funnel is narrowing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Membership Revenue Breakdown -->
+  <div class="section fade-in" id="section-04">
+    <div class="section-label">04 — Revenue</div>
+    <div class="section-title">Where Your $40.7K/Month Comes From</div>
+    <div class="section-desc">A breakdown of active membership plans and their monthly revenue contribution. Source: Hapana Core.</div>
+
+    <div class="chart-grid">
+      <div class="chart-wrap">
+        <h3>Revenue by Plan</h3>
+        <div class="chart-subtitle">Monthly recurring revenue distribution</div>
+        <div class="chart-container" style="height: 280px;"><canvas id="revenueDonutChart"></canvas></div>
+      </div>
+      <div class="chart-wrap" style="overflow-y: auto;">
+        <h3>Plan Breakdown</h3>
+        <div class="chart-subtitle">All active membership plans ranked by revenue</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Members</th>
+              <th>$/mo</th>
+              <th>Revenue</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="planTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Intro Offer Analysis -->
+  <div class="section fade-in" id="section-05">
+    <div class="section-label">05 — Offer Analysis</div>
+    <div class="section-title">The Intro Offer Landscape</div>
+    <div class="section-desc">What intro offers are active and how they're distributed. Too many offer types creates confusion and dilutes the conversion path. Source: Hapana Core — Package Category = "Intro Offer".</div>
+
+    <div class="chart-grid">
+      <div class="chart-wrap">
+        <h3>Active Intro Offers by Type</h3>
+        <div class="chart-subtitle">223 people across 14 different offer types</div>
+        <div class="chart-container" style="height: 280px;"><canvas id="introBreakdownChart"></canvas></div>
+      </div>
+      <div class="chart-wrap">
+        <h3>Offer Complexity</h3>
+        <div class="chart-subtitle">Diagnosis</div>
+        <div style="padding: 12px 0;">
+          <div class="insight-card" style="border: none; padding: 16px 0; box-shadow: none;">
+            <div class="insight-number" style="font-size: 48px;">14</div>
+            <h4>Different Intro Offer Types</h4>
+            <p style="margin-top: 8px;">Ranging from $0 to $99 across 14 different naming conventions. This creates confusion for both the team and the prospect. A simpler, singular intro path with clear next steps would dramatically improve conversion.</p>
+          </div>
+          <hr style="border: none; border-top: 1px solid var(--divider); margin: 16px 0;">
+          <div style="font-size: 13px; color: var(--ink-muted); line-height: 1.8;">
+            <strong style="color: var(--ink-light);">Key observation:</strong> The top 3 offers (STRONG Experience, 2for50, STRONG Intro Offer) account for 54% of all active intros. The remaining 11 offer types fragment the funnel and make it harder to build a consistent nurture sequence.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suspended Risk -->
+  <div class="section fade-in" id="section-06">
+    <div class="section-label">06 — Retention Risk</div>
+    <div class="section-title">59 Suspended Memberships</div>
+    <div class="section-desc">These are members who have paused — they're at high risk of cancellation without proactive outreach. And with 230 cancellations already on record (zero reasons logged), churn is a proven pattern here.</div>
+
+    <div class="chart-wrap">
+      <h3>Suspended by Plan Type</h3>
+      <div class="chart-subtitle">Which membership plans have the highest suspension rates</div>
+      <div class="chart-container" style="height: 250px;"><canvas id="suspendedChart"></canvas></div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #2a1a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>59 suspended members = up to $9,735/month at risk.</h3>
+          <p>At an average membership value of $165/month, every suspended member who doesn't return is a direct hit to MRR. A simple reactivation campaign targeting these 59 people could recover a significant chunk of revenue with zero ad spend.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--red);">$9.7K</div>
+          <div class="callout-stat-label">Monthly Revenue at Risk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancellation Deep-Dive -->
+  <div class="section fade-in" id="section-06b">
+    <div class="section-label">06b — The Blind Spot</div>
+    <div class="section-title">230 Cancellations — Zero Reasons Logged</div>
+    <div class="section-desc">With full cancelled and completed records from Hapana Core, the churn picture is now visible. 230 members have cancelled — and not a single one has a reason logged. You can't fix what you can't see.</div>
+
+    <div class="chart-wrap">
+      <h3>Cancellations by Month</h3>
+      <div class="chart-subtitle">Monthly membership cancellations — January 2025 to March 2026</div>
+      <div class="chart-container" style="height: 260px;"><canvas id="cancellationsByMonthChart"></canvas></div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>Net Member Growth</h3>
+      <div class="chart-subtitle">Memberships sold minus cancellations — the real growth picture</div>
+      <div class="chart-container" style="height: 260px;"><canvas id="netMemberGrowthChart"></canvas></div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #2a1a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>December 2025 was net negative — more members cancelled than joined.</h3>
+          <p>16 memberships sold vs. 18 cancellations. When churn exceeds intake, growth reverses. And without cancellation reasons, you're flying blind — is it price? Experience? Competition? Seasonal? Nobody knows.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--red);">-2</div>
+          <div class="callout-stat-label">Net Members (Dec 25)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-number" style="color: var(--red);">0 of 230</div>
+        <h4>Cancellations Have a Reason</h4>
+        <p>Every single one of the 230 cancellations has a blank "Cancellation Reason" field. This means every member who left did so without the business knowing why. A simple cancellation survey would transform your ability to reduce churn.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number" style="color: var(--red);">32.8%</div>
+        <h4>Churn Rate</h4>
+        <p>230 of 702 total membership records ended in cancellation. Industry benchmark is under 10%. You're losing a third of the members you work so hard to acquire — and every one represents $165/month walking out the door.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Real Cost -->
+  <div class="section fade-in" id="section-07">
+    <div class="section-label">07 — The Real Cost</div>
+    <div class="section-title">$44,718 in Ad Spend — What Did It Actually Buy?</div>
+    <div class="section-desc">We pulled the actual Meta Ads data and cross-referenced it with Hapana Core. We've separated pre-opening (presale) from operating spend so the numbers are fair and accurate.</div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="stat-card">
+        <div class="stat-label">Total Lifetime Spend</div>
+        <div class="stat-value" style="font-size: 28px;">$44,718</div>
+        <div class="stat-sub">Sep 2024 — Mar 2026 (CAD)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pre-Open Spend</div>
+        <div class="stat-value" style="font-size: 28px;">$10,378</div>
+        <div class="stat-sub">Sep–Dec 2024 (presale + opening)</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-label">Operating CPL</div>
+        <div class="stat-value" style="font-size: 28px;">$20.39</div>
+        <div class="stat-sub">1,684 real leads (Jan 25 — Mar 26)</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-label">Cost Per Intro Offer</div>
+        <div class="stat-value" style="font-size: 28px;">$83.55</div>
+        <div class="stat-sub">411 intros sold (operating period)</div>
+      </div>
+    </div>
+
+    <!-- Period breakdown -->
+    <div class="chart-wrap" style="margin-top: 8px;">
+      <h3>Spend by Period</h3>
+      <div class="chart-subtitle">We understand there was a presale before opening — here's how the spend breaks down</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.8; padding: 8px 0;">
+        <div style="padding: 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+          <div style="font-weight: 700; color: var(--ink-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Presale (Sep–Nov 2024)</div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px;">$4,668</div>
+          <p style="color: var(--ink-muted); font-size: 12px;">Brand awareness before doors opened. Zero lead tracking — expected for presale phase. This is normal.</p>
+        </div>
+        <div style="padding: 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+          <div style="font-weight: 700; color: var(--ink-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Grand Opening (Dec 2024)</div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px;">$5,710</div>
+          <p style="color: var(--ink-muted); font-size: 12px;">Opening month. Still no Meta lead tracking, but 196 Hapana accounts created and 34 intro offers sold. The studio was live.</p>
+        </div>
+        <div style="padding: 16px; background: white; border-radius: 10px; border: 2px solid var(--gold); position: relative;">
+          <div style="font-weight: 700; color: var(--gold-dark); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Operating (Jan 2025 — Mar 2026)</div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold-dark); margin-bottom: 4px;">$34,340</div>
+          <p style="color: var(--ink-muted); font-size: 12px;">15 months of operating spend. 1,684 real leads. This is the period we analyse below — fair, post-opening numbers only.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap" style="margin-top: 24px;">
+      <h3>Monthly Ad Spend vs. Real Leads &amp; Purchases</h3>
+      <div class="chart-subtitle">Actual Meta Ads data — operating period highlighted. Pre-open spend shown in faded bars.</div>
+      <div class="chart-container" style="height: 300px;"><canvas id="adSpendChart"></canvas></div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>The Real Cost Escalation</h3>
+      <div class="chart-subtitle">Every lost intro is $84 in ad spend that never converts to a member</div>
+      <div class="chart-container" style="height: 220px;"><canvas id="cpaChart"></canvas></div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #2a1a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>The "Results" number changed meaning 5 times in 15 months.</h3>
+          <p>The conversion event tracked as a "result" shifted from custom pixel events → pixel leads → lead forms → landing page views. In January 2026, <strong>654 of 751 "results" were just page views</strong> — not leads. When we strip out page views and count only real leads (forms + pixel + custom events), the total is 1,684 — not 2,476.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--red);">5x</div>
+          <div class="callout-stat-label">Events Changed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-grid" style="margin-top: 24px;">
+      <div class="insight-card">
+        <div class="insight-number">$20.39</div>
+        <h4>Operating CPL (Post-Opening)</h4>
+        <p>Once the studio was open and lead tracking was active (Jan 2025+), the real CPL across all lead types (forms, pixel, custom events — excluding page views) is $20.39. That's the fair number to benchmark against.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number">$83.55 per Intro</div>
+        <h4>The Real Cost of an Intro Offer</h4>
+        <p>Operating spend ($34,340) divided by 411 intro offers sold = $83.55 per intro buyer. 56% of those never become members — that's 230 lost intros at $84 each = <strong>$19,320 in ad spend that led nowhere</strong>. And of those who do convert, 32.8% cancel. The cost isn't just the CPL — it's the compounding waste at every stage.</p>
+      </div>
+    </div>
+
+    <div class="chart-wrap" style="margin-top: 24px;">
+      <h3>Ad Spend by Campaign Type</h3>
+      <div class="chart-subtitle">Grouped by strategy — not individual campaign names</div>
+      <div class="chart-container" style="height: 280px;"><canvas id="campaignBreakdownChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Membership Value Tiers -->
+  <div class="section fade-in" id="section-08">
+    <div class="section-label">08 — Membership Value</div>
+    <div class="section-title">Not All Members Are Created Equal</div>
+    <div class="section-desc">246 active members sounds healthy — but when you look at what they're actually paying, a significant portion are on low-fee plans that barely move the needle on revenue.</div>
+
+    <div class="chart-grid">
+      <div class="chart-wrap">
+        <h3>Members by Price Tier</h3>
+        <div class="chart-subtitle">How many members fall into each value bracket</div>
+        <div class="chart-container" style="height: 260px;"><canvas id="memberTierCountChart"></canvas></div>
+      </div>
+      <div class="chart-wrap">
+        <h3>Revenue by Price Tier</h3>
+        <div class="chart-subtitle">What each tier actually contributes to MRR</div>
+        <div class="chart-container" style="height: 260px;"><canvas id="memberTierRevenueChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>Every Membership Plan — Price vs. Members</h3>
+      <div class="chart-subtitle">Bubble size = monthly revenue contribution. Excludes 18 trainer accounts ($0).</div>
+      <div class="chart-container" style="height: 300px;"><canvas id="memberValueScatter"></canvas></div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>41 members (18%) are paying under $100/month.</h3>
+          <p>These 41 members contribute just $2,568/month — only 6.3% of your total MRR. Meanwhile, your top tier (132 members at $196+/month) drives 77.8% of all revenue. The opportunity isn't just <em>more</em> members — it's more members on the <strong>right plans</strong>.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat">6.3%</div>
+          <div class="callout-stat-label">Revenue from under-$100 members</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #2a2a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>STRONG 4 should be a backup option, not the default path.</h3>
+          <p>57 members are on STRONG 4 ($108-118/month). STRONG 8 is $196-219/month. If just half upgraded, that's an additional ~$5,000/month in MRR — with zero new members needed.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--gold);">+$5K</div>
+          <div class="callout-stat-label">If half of STRONG 4 upgraded</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-number">$53–75/mo</div>
+        <h4>The VIP &amp; Low-Tier Plans</h4>
+        <p>41 members across VIP1 ($59), VIP2 ($64), VIP3 ($69), 2-Session ($53), and STRONG Human ($75) plans. These need to be pathways to higher-value plans, not destinations.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number">57 on STRONG 4</div>
+        <h4>The Mid-Tier Ceiling</h4>
+        <p>57 members on STRONG 4 ($108–$118/mo) represent 25% of all members but only 15.9% of revenue. Removing STRONG 4 as a primary option and guiding these members toward STRONG 8 ($219/mo) would add significant MRR.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opportunity -->
+  <div class="section fade-in" id="section-09">
+    <div class="section-label">09 — The Opportunity</div>
+    <div class="section-title">Where the Money Is Hiding</div>
+    <div class="section-desc">Your conversion rate is actually 29.6% — not terrible. The real opportunity is two levers: converting more intros AND keeping the members you already have.</div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <h3 style="color: var(--gold); margin-bottom: 24px;">If you move intro conversion from 30% to 50% AND cut churn from 33% to 15%...</h3>
+      <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); gap: 24px;">
+        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 12px;">Lever 1: Conversion</div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--cream);">30% &rarr; 50%</div>
+          <div style="font-size: 13px; color: rgba(250,247,242,0.5); margin-top: 8px;">Intro-to-member conversion<br>+82 extra members/year at current volume</div>
+        </div>
+        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 12px;">Lever 2: Retention</div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--cream);">33% &rarr; 15%</div>
+          <div style="font-size: 13px; color: rgba(250,247,242,0.5); margin-top: 8px;">Churn rate halved<br>~126 fewer cancellations/year</div>
+        </div>
+      </div>
+      <p style="margin-top: 24px; text-align: center; font-size: 16px; color: var(--cream);">
+        Combined: <strong style="color: var(--gold);">+208 net members/year</strong> at $165/month avg = <strong style="color: var(--gold);">+$34,320/month in MRR</strong><br>
+        <span style="color: rgba(250,247,242,0.5);">More intros converting + fewer members leaving = compounding growth. Taking you from $40.7K toward $75K/month.</span>
+      </p>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-number">$412K+</div>
+        <h4>Additional Annual Revenue</h4>
+        <p>208 net members &times; $165/month &times; 12 months. This is revenue available from two levers: better conversion AND better retention — both fixable with the right systems.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-number">$0</div>
+        <h4>Additional Ad Spend Required</h4>
+        <p>This growth comes entirely from converting existing leads better and keeping members longer — not from generating more. The 282 unconverted intros and 230 cancelled members are revenue waiting to be recovered.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study: STRONG Kelowna -->
+  <div class="section fade-in" id="section-10">
+    <div class="section-label">10 — Case Study</div>
+    <div class="section-title">STRONG Pilates Kelowna — 14 Weeks of Results</div>
+    <div class="section-desc">A STRONG Pilates location that started working with Kaizen Collective in December 2025. Here's what happened when we applied the same principles we're recommending for The Beach TO.</div>
+
+    <div class="stats-grid">
+      <div class="stat-card success">
+        <div class="stat-label">Gross Revenue</div>
+        <div class="stat-value" style="font-size: 28px;">$13.1K &rarr; $23.7K</div>
+        <div class="stat-sub">+81% in 14 weeks</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Total Members</div>
+        <div class="stat-value" style="font-size: 28px;">231 &rarr; 276</div>
+        <div class="stat-sub">+45 members (+19%)</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Intro Offers/Week</div>
+        <div class="stat-value" style="font-size: 28px;">1 &rarr; 52</div>
+        <div class="stat-sub">Peak week (Jan 5, 2026)</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Ad Spend</div>
+        <div class="stat-value" style="font-size: 28px;">~$260/wk</div>
+        <div class="stat-sub">$37/day average — not $50-100</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>Kelowna Weekly Revenue</h3>
+      <div class="chart-subtitle">Gross revenue per week — Dec 8, 2025 to Mar 2, 2026</div>
+      <div class="chart-container" style="height: 250px;"><canvas id="kelownaRevenueChart"></canvas></div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-wrap">
+        <h3>Kelowna Weekly Intro Offers &amp; New Members</h3>
+        <div class="chart-subtitle">The intake pipeline building over time</div>
+        <div class="chart-container" style="height: 220px;"><canvas id="kelownaIntroMemberChart"></canvas></div>
+      </div>
+      <div class="chart-wrap">
+        <h3>Kelowna Cost Per Lead &amp; Contact</h3>
+        <div class="chart-subtitle">Efficient spend = quality leads at low cost</div>
+        <div class="chart-container" style="height: 220px;"><canvas id="kelownaCostChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>The Kelowna Playbook</h3>
+          <p>Lower spend ($37/day vs $50-100/day). Better lead quality. Proper nurture systems. Focused intro-to-member conversion. The same approach we're recommending for The Beach TO — and it's already working.</p>
+          <div style="margin-top: 16px; font-size: 13px; color: rgba(250,247,242,0.5);">
+            <strong style="color: var(--gold);">Key milestones:</strong> Week 1-4 = system setup + first campaigns live. Week 5-8 = intro offers climbing. Week 9-14 = membership conversions accelerating, revenue up 81%.
+          </div>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--green);">+81%</div>
+          <div class="callout-stat-label">Revenue Growth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12-Week Pathway -->
+  <div class="section fade-in" id="section-11">
+    <div class="section-label">11 — The Pathway</div>
+    <div class="section-title">Your 12-Week Runway to Momentum</div>
+    <div class="section-desc">This isn't an overnight fix. It's a progressive, structured pathway that builds momentum week by week. Here's exactly what happens and when — no guesswork, no surprises.</div>
+
+    <!-- Phase 1 Highlight -->
+    <div class="callout" style="background: linear-gradient(135deg, #2a2a1a 0%, var(--ink) 100%); margin-bottom: 40px;">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>First campaign goes live by end of Week 2.</h3>
+          <p>Because we already have access to Hapana Core and Grow, and STRONG HQ sets the offer structure, we can move fast. All we need from you is raw studio media (photos and video) and we handle the rest.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--gold);">14</div>
+          <div class="callout-stat-label">Days to Live</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; padding-left: 40px; margin-bottom: 40px;">
+      <!-- Timeline line -->
+      <div style="position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--green));"></div>
+
+      <!-- Phase 1 -->
+      <div style="position: relative; margin-bottom: 40px;">
+        <div style="position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); border: 3px solid var(--cream);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--gold-glow); color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Phase 1</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Weeks 1–2</span>
+          </div>
+          <h3>Onramp Fast Track — Foundation &amp; First Campaign Live</h3>
+          <div class="chart-subtitle">Build the marketing ecosystem from scratch. First campaign goes live by end of this phase.</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.8;">
+            <div>
+              <strong style="color: var(--ink-light);">What We Do:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Full audit of Hapana Grow + Core</li>
+                <li>Offer clarity — simplify from 14 intro types to 1-2</li>
+                <li>CRM pipeline rebuild — track every stage</li>
+                <li>Ad creative design + copywriting</li>
+                <li>Nurture sequences built and loaded</li>
+                <li>Weekly metrics dashboard set up</li>
+                <li><strong style="color: var(--gold-dark);">First campaign LIVE</strong></li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: var(--ink-light);">What You'll See:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Clean, working pipeline in Hapana Grow</li>
+                <li>First leads coming in from new campaigns</li>
+                <li>Automated nurture sequences firing</li>
+                <li>Clear weekly metrics dashboard</li>
+                <li>Every lead tracked from ad to account</li>
+              </ul>
+            </div>
+            <div>
+              <div style="padding: 12px 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+                <strong style="color: var(--ink-light); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">What We Need from You:</strong>
+                <ul class="needs-list">
+                  <li>Raw studio photos (interior, classes, instructors, lifestyle)</li>
+                  <li>Raw video footage (classes in action, behind the scenes)</li>
+                  <li>30-min onboarding call (your goals, your voice, your vibe)</li>
+                  <li>Confirmation on intro offer pricing</li>
+                </ul>
+              </div>
+              <div style="margin-top: 12px; padding: 8px 12px; background: var(--gold-glow); border-radius: 8px; font-size: 12px;">
+                <strong style="color: var(--gold-dark);">STRONG Advantage:</strong> HQ sets the offer + we already have Core &amp; Grow access = <strong>7 days</strong> instead of 14.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="position: relative; margin-bottom: 40px;">
+        <div style="position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--orange); border: 3px solid var(--cream);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--orange-light); color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Phase 2</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Weeks 3–6</span>
+          </div>
+          <h3>Attract &amp; Convert — Building the Pipeline</h3>
+          <div class="chart-subtitle">Lower spend, higher quality leads, and a nurture system that actually works.</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.8;">
+            <div>
+              <strong style="color: var(--ink-light);">What We Do:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Optimise ad campaigns based on live data</li>
+                <li>Reduce spend — focus on CPA, not CPL</li>
+                <li>Intro offer nurture sequences refined</li>
+                <li>Team trained on instant connection systems</li>
+                <li>Magic moments framework for intro sessions</li>
+                <li>Weekly strategy calls + execution support</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: var(--ink-light);">What You'll See:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Intro offer purchases climbing week over week</li>
+                <li>Better lead quality (less noise, more intent)</li>
+                <li>Team engaging with intros proactively</li>
+                <li>First membership conversions from new pipeline</li>
+              </ul>
+              <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+                <strong style="color: var(--green);">Kelowna at this stage:</strong> Intros went from 1/week to 41/week. Revenue climbing from $13K to $15K/week.
+              </div>
+            </div>
+            <div>
+              <div style="padding: 12px 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+                <strong style="color: var(--ink-light); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">What We Need from You:</strong>
+                <ul class="needs-list">
+                  <li>Attend weekly strategy calls (30 min)</li>
+                  <li>Brief your team on the new intro offer flow</li>
+                  <li>Share feedback on lead quality weekly</li>
+                  <li>Any new photos/video as they come</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="position: relative; margin-bottom: 40px;">
+        <div style="position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--blue); border: 3px solid var(--cream);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Phase 3</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Weeks 7–10</span>
+          </div>
+          <h3>Deliver &amp; Retain — Converting Intros to Members</h3>
+          <div class="chart-subtitle">The intro-to-member bridge — where the real revenue lives.</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.8;">
+            <div>
+              <strong style="color: var(--ink-light);">What We Do:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Intro-to-member conversion systems optimised</li>
+                <li>Follow-up cadence for every intro buyer</li>
+                <li>Humanised touchpoints at Day 1, 3, 7, 14</li>
+                <li>Re-engagement campaigns for 282 unconverted intros</li>
+                <li>Reactivation outreach to 59 suspended members</li>
+                <li>Cancellation reason tracking system</li>
+                <li>Win-back campaigns for 230 cancelled members</li>
+                <li>STRONG 4 phase-down strategy</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: var(--ink-light);">What You'll See:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Intro-to-member conversion climbing toward 50%</li>
+                <li>Membership count growing week over week</li>
+                <li>Suspended members reactivating</li>
+                <li>Churn rate dropping — cancellation reasons visible</li>
+                <li>Revenue growth accelerating</li>
+              </ul>
+              <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+                <strong style="color: var(--green);">Kelowna at this stage:</strong> New members hit 16-17/week. Revenue crossed $20K/week. Members grew from 235 to 274.
+              </div>
+            </div>
+            <div>
+              <div style="padding: 12px 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+                <strong style="color: var(--ink-light); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">What We Need from You:</strong>
+                <ul class="needs-list">
+                  <li>Attend weekly strategy calls (30 min)</li>
+                  <li>Implement team training recommendations</li>
+                  <li>Ensure instructors follow the magic moments playbook</li>
+                  <li>Report on intro offer attendance and feedback</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div style="position: relative;">
+        <div style="position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--green); border: 3px solid var(--cream);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Phase 4</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Weeks 11–12</span>
+          </div>
+          <h3>Scale &amp; Systematise — Sustainable Growth</h3>
+          <div class="chart-subtitle">Lock in the systems so growth continues without constant effort.</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.8;">
+            <div>
+              <strong style="color: var(--ink-light);">What We Do:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Quarterly planning + growth sprint</li>
+                <li>Ad creative refresh with new performance data</li>
+                <li>Advanced segmentation and personalisation</li>
+                <li>Team SOPs documented for ongoing execution</li>
+                <li>Monthly reporting cadence locked in</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: var(--ink-light);">Where You Should Be:</strong>
+              <ul style="color: var(--ink-muted); margin: 4px 0 0 16px;">
+                <li>Intro-to-member conversion at 40-50%+ (from 30%)</li>
+                <li>CPA cut by 50%+ with same or fewer leads</li>
+                <li>MRR trending toward $50K+/month</li>
+                <li>A system that runs — not a hustle that exhausts</li>
+              </ul>
+              <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+                <strong style="color: var(--green);">Kelowna at Week 14:</strong> Revenue hit $23.7K/week. Members at 276. Spending just $37/day on ads.
+              </div>
+            </div>
+            <div>
+              <div style="padding: 12px 16px; background: var(--cream-dark); border-radius: 10px; border: 1px solid var(--divider);">
+                <strong style="color: var(--ink-light); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">What We Need from You:</strong>
+                <ul class="needs-list">
+                  <li>Attend monthly planning session (60 min)</li>
+                  <li>Fresh creative assets quarterly</li>
+                  <li>Continue team execution of SOPs</li>
+                  <li>That's it — the system runs itself</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work -->
+  <div class="section fade-in" id="section-12">
+    <div class="section-label">12 — How We Work</div>
+    <div class="section-title">Done With You — Not Done For You</div>
+    <div class="section-desc">We don't just run ads and send reports. We work alongside you — coaching, building, and executing together so the systems become yours.</div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat-card">
+        <div class="stat-label">Weekly Investment</div>
+        <div class="stat-value">$300</div>
+        <div class="stat-sub">Per week — no lock-in contracts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">What's Included</div>
+        <div class="stat-value" style="font-size: 20px;">Full DWY</div>
+        <div class="stat-sub">Ads, CRM, copy, design, strategy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">STRONG Setup</div>
+        <div class="stat-value" style="font-size: 20px;">7 Days</div>
+        <div class="stat-sub">First campaign live within a week</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>What $300/Week Gets You</h3>
+      <div class="chart-subtitle">The full Kaizen DWY (Done With You) service</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; line-height: 1.8; padding: 8px 0;">
+        <div>
+          <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Execution</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px; list-style-type: '&#x2714;  ';">
+            <li>Meta ad campaign management</li>
+            <li>Ad creative design (graphics + video editing)</li>
+            <li>Copywriting (ads, emails, SMS, nurture sequences)</li>
+            <li>CRM build-out and automation</li>
+            <li>Funnel setup and optimisation</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Strategy &amp; Support</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px; list-style-type: '&#x2714;  ';">
+            <li>Live strategy calls 4x per week</li>
+            <li>Monthly growth planning sessions</li>
+            <li>Quarterly growth sprints</li>
+            <li>Dedicated Slack channel for support</li>
+            <li>Weekly metrics tracking and reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>The math makes itself.</h3>
+          <p>At $300/week ($1,200/month), you need to convert just <strong>8 additional members</strong> at $165/month avg to be cash-flow positive on this investment — and the system is designed to deliver multiples of that. Kelowna added 45 members in 14 weeks.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--green);">8</div>
+          <div class="callout-stat-label">Members to break even</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="section fade-in" id="section-13" style="border-bottom: none;">
+    <div class="section-label">13 — Next Steps</div>
+    <div class="section-title">Ready to Fix the Leak?</div>
+    <div class="section-desc">Here's what happens from here.</div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">1</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">Confirm &amp; Onboard</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">Confirm the partnership, get you into our client systems, and schedule your onboarding call.</p>
+      </div>
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">2</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">Send Studio Assets</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">Send us your raw studio photos and video. That's the only thing we need from you to get started.</p>
+      </div>
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">3</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">First Campaign Live</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">Within 7 days, your new marketing ecosystem is built, first campaign is live, and leads start flowing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">Kaizen Collective</div>
+    <p>Prepared by Mario Paguio &middot; kaizencollective.com.au</p>
+    <p style="margin-top: 4px; font-size: 11px; opacity: 0.5;">Confidential — prepared for STRONG Pilates The Beach TO</p>
+  </div>
+
+</div>
+
+<script>
+// ── Chart.js Global Config ──
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#6B6B6B';
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyle = 'circle';
+
+const gold = '#C8A951';
+const goldLight = 'rgba(200, 169, 81, 0.15)';
+const red = '#C44536';
+const redLight = 'rgba(196, 69, 54, 0.15)';
+const blue = '#4A6FA5';
+const blueLight = 'rgba(74, 111, 165, 0.15)';
+const green = '#4A7C59';
+const greenLight = 'rgba(74, 124, 89, 0.15)';
+const orange = '#D4853A';
+const orangeLight = 'rgba(212, 133, 58, 0.15)';
+const purple = '#7B5EA7';
+const purpleLight = 'rgba(123, 94, 167, 0.15)';
+const ink = '#1A1A1A';
+const inkMuted = '#6B6B6B';
+const teal = '#2A9D8F';
+const tealLight = 'rgba(42, 157, 143, 0.15)';
+
+const months = ['Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+
+// Hapana Grow — CRM Contacts with email, by month
+const contactsCreated = [547, 577, 356, 344, 324, 337, 321, 312, 261, 229, 178, 195, 167, 206, 253, 126];
+
+// Hapana Core — Accounts Created (unique members by Member Created Date)
+const accountsCreated = [196, 168, 87, 77, 66, 58, 48, 55, 59, 58, 44, 42, 25, 31, 38, 24];
+
+// Hapana Core — Package Category breakdown by Date Sold (full data incl. cancelled/completed)
+const introsPurchased =     [135, 244, 15, 8, 6, 12, 7, 9, 9, 10, 6, 8, 4, 15, 34, 24];
+const membershipsPurchased = [1, 116, 35, 50, 38, 55, 42, 36, 32, 133, 31, 44, 16, 39, 24, 10];
+const packagesPurchased =    [2, 15, 13, 28, 40, 52, 53, 44, 104, 66, 86, 65, 98, 97, 59, 51];
+
+// Membership Cancellations (from cancelled/completed Hapana Core export)
+const membershipsCancelled = [0, 26, 19, 13, 21, 16, 16, 7, 20, 20, 5, 16, 18, 12, 16, 5];
+
+const tooltipConfig = {
+  backgroundColor: ink,
+  titleFont: { weight: '600' },
+  padding: 12,
+  cornerRadius: 8
+};
+
+// ── Full Pipeline Chart ──
+new Chart(document.getElementById('fullPipelineChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Contacts Created (Grow)',
+        data: contactsCreated,
+        borderColor: blue,
+        backgroundColor: blueLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: blue,
+        borderWidth: 2.5,
+        order: 1
+      },
+      {
+        label: 'Accounts Created (Core)',
+        data: accountsCreated,
+        borderColor: gold,
+        backgroundColor: goldLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: gold,
+        borderWidth: 2.5,
+        order: 2
+      },
+      {
+        label: 'Intro Offers Purchased',
+        data: introsPurchased,
+        borderColor: orange,
+        backgroundColor: orangeLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: orange,
+        borderWidth: 2.5,
+        order: 3
+      },
+      {
+        label: 'Memberships Purchased',
+        data: membershipsPurchased,
+        borderColor: green,
+        backgroundColor: greenLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: green,
+        borderWidth: 2.5,
+        order: 4
+      },
+      {
+        label: 'Packages Purchased',
+        data: packagesPurchased,
+        borderColor: purple,
+        backgroundColor: purpleLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: purple,
+        borderWidth: 2,
+        borderDash: [5, 3],
+        order: 5
+      },
+      {
+        label: 'Memberships Cancelled / Inactive',
+        data: membershipsCancelled,
+        borderColor: red,
+        backgroundColor: redLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: red,
+        borderWidth: 2.5,
+        order: 6
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'start', labels: { padding: 16 } },
+      tooltip: tooltipConfig
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true }
+    }
+  }
+});
+
+// ── Contacts vs Accounts ──
+new Chart(document.getElementById('contactsVsAccountsChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Contacts Created (Grow)',
+        data: contactsCreated,
+        backgroundColor: blue,
+        borderRadius: 4,
+        barPercentage: 0.85,
+        categoryPercentage: 0.75
+      },
+      {
+        label: 'Accounts Created (Core)',
+        data: accountsCreated,
+        backgroundColor: gold,
+        borderRadius: 4,
+        barPercentage: 0.85,
+        categoryPercentage: 0.75
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: tooltipConfig
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true }
+    }
+  }
+});
+
+// ── Purchases by Category ──
+new Chart(document.getElementById('purchasesByCategoryChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Intro Offers',
+        data: introsPurchased,
+        backgroundColor: orange,
+        borderRadius: 4,
+        barPercentage: 0.85,
+        categoryPercentage: 0.75
+      },
+      {
+        label: 'Memberships',
+        data: membershipsPurchased,
+        backgroundColor: green,
+        borderRadius: 4,
+        barPercentage: 0.85,
+        categoryPercentage: 0.75
+      },
+      {
+        label: 'Packages',
+        data: packagesPurchased,
+        backgroundColor: purple,
+        borderRadius: 4,
+        barPercentage: 0.85,
+        categoryPercentage: 0.75
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: tooltipConfig
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true }
+    }
+  }
+});
+
+// ── Revenue Donut ──
+const revData = [
+  { name: 'STRONG Human 6M', rev: 11695, color: '#C8A951' },
+  { name: 'STRONG 8', rev: 6137, color: '#A88B3A' },
+  { name: 'STRONG 8 6M', rev: 5890, color: '#D4BC72' },
+  { name: 'STRONG Human', rev: 5310, color: '#4A6FA5' },
+  { name: 'STRONG 4', rev: 3670, color: '#6B8FBD' },
+  { name: 'STRONG 4 6M', rev: 2801, color: '#4A7C59' },
+  { name: 'STRONG 12', rev: 2600, color: '#6B9D7A' },
+  { name: 'Other Plans', rev: 2569, color: '#D4853A' },
+];
+
+new Chart(document.getElementById('revenueDonutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: revData.map(d => d.name),
+    datasets: [{
+      data: revData.map(d => d.rev),
+      backgroundColor: revData.map(d => d.color),
+      borderWidth: 3,
+      borderColor: '#ffffff',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: ink,
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => ` $${ctx.parsed.toLocaleString()}/mo`
+        }
+      }
+    }
+  }
+});
+
+// ── Plan Table ──
+const plans = [
+  { name: 'STRONG Human — 6 Month', count: 44, price: 266, rev: 11695 },
+  { name: 'STRONG 8', count: 28, price: 219, rev: 6137 },
+  { name: 'STRONG 8 — 6 Month', count: 30, price: 196, rev: 5890 },
+  { name: 'STRONG Human', count: 18, price: 295, rev: 5310 },
+  { name: 'STRONG 4', count: 31, price: 118, rev: 3670 },
+  { name: 'STRONG 4 — 6 Month', count: 26, price: 108, rev: 2801 },
+  { name: 'STRONG 12', count: 12, price: 217, rev: 2600 },
+  { name: 'STRONG Human VIP1', count: 17, price: 59, rev: 1003 },
+  { name: 'STRONG Human VIP2', count: 9, price: 64, rev: 576 },
+  { name: 'Other', count: 15, price: null, rev: 990 },
+];
+const maxRev = Math.max(...plans.map(p => p.rev));
+const tbody = document.getElementById('planTableBody');
+plans.forEach(p => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="plan-name">${p.name}</td>
+    <td>${p.count}</td>
+    <td>${p.price ? '$' + p.price : '\u2014'}</td>
+    <td class="plan-revenue">$${p.rev.toLocaleString()}</td>
+    <td class="plan-bar"><div class="plan-bar-inner" style="width: ${(p.rev / maxRev * 100)}%"></div></td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// ── Intro Breakdown ──
+const introData = [
+  { name: 'STRONG Experience', count: 46 },
+  { name: '2 for $50', count: 43 },
+  { name: 'STRONG Intro Offer', count: 34 },
+  { name: '21-Day Experience', count: 27 },
+  { name: 'VIP2 Promo', count: 16 },
+  { name: 'Starter Pass', count: 13 },
+  { name: 'VIP3 Promo', count: 12 },
+  { name: 'Re-Starter Pass', count: 10 },
+  { name: 'Other (6 types)', count: 22 },
+];
+const introColors = ['#D4853A','#C8A951','#4A6FA5','#4A7C59','#6B8FBD','#A88B3A','#6B9D7A','#D4BC72','#999'];
+
+new Chart(document.getElementById('introBreakdownChart'), {
+  type: 'doughnut',
+  data: {
+    labels: introData.map(d => d.name),
+    datasets: [{
+      data: introData.map(d => d.count),
+      backgroundColor: introColors,
+      borderWidth: 3,
+      borderColor: '#ffffff',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '55%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: ink,
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => ` ${ctx.parsed} active`
+        }
+      }
+    }
+  }
+});
+
+// ── Suspended Chart ──
+const suspData = [
+  { name: 'STRONG Human VIP1', count: 11 },
+  { name: 'STRONG 8 — 6M', count: 8 },
+  { name: 'STRONG Human VIP2', count: 8 },
+  { name: 'STRONG Human VIP3', count: 7 },
+  { name: 'STRONG Human — 6M', count: 6 },
+  { name: 'STRONG 4 — 6M', count: 5 },
+  { name: 'Other Plans', count: 14 },
+];
+
+new Chart(document.getElementById('suspendedChart'), {
+  type: 'bar',
+  data: {
+    labels: suspData.map(d => d.name),
+    datasets: [{
+      label: 'Suspended',
+      data: suspData.map(d => d.count),
+      backgroundColor: red,
+      borderRadius: 6,
+      barPercentage: 0.6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: ink, padding: 10, cornerRadius: 8 }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// ── Ad Spend vs Results Chart ──
+const adMonths = ['Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+const adSpend = [5710, 3595, 2772, 3138, 2791, 3142, 3069, 2948, 1573, 1734, 1555, 1570, 1399, 2703, 1719, 632];
+// Real leads: lead forms + pixel leads + custom events (excludes 792 landing page views)
+const adLeads = [0, 272, 113, 103, 141, 152, 177, 157, 104, 75, 61, 71, 59, 97, 73, 29];
+// Meta pixel tracked purchases
+const adPurchases = [0, 0, 0, 0, 24, 31, 24, 10, 4, 6, 2, 6, 4, 3, 1, 0];
+
+new Chart(document.getElementById('adSpendChart'), {
+  type: 'bar',
+  data: {
+    labels: adMonths,
+    datasets: [
+      {
+        label: 'Ad Spend ($CAD)',
+        data: adSpend,
+        backgroundColor: (ctx) => adLeads[ctx.dataIndex] === 0 ? 'rgba(196, 69, 54, 0.4)' : red,
+        borderRadius: 4,
+        barPercentage: 0.7,
+        categoryPercentage: 0.8,
+        yAxisID: 'y',
+        order: 3
+      },
+      {
+        label: 'Actual Leads',
+        data: adLeads,
+        type: 'line',
+        borderColor: blue,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: blue,
+        borderWidth: 2.5,
+        yAxisID: 'y1',
+        order: 1
+      },
+      {
+        label: 'Purchases (Meta Pixel)',
+        data: adPurchases,
+        type: 'line',
+        borderColor: green,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: green,
+        borderWidth: 2.5,
+        yAxisID: 'y1',
+        order: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => {
+            if (ctx.dataset.label === 'Ad Spend ($CAD)') return ` Spend: $${ctx.parsed.y.toLocaleString()}`;
+            if (ctx.dataset.label === 'Purchases (Meta Pixel)') return ` Purchases: ${ctx.parsed.y}`;
+            return ` Leads: ${ctx.parsed.y}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        position: 'left',
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true,
+        ticks: { callback: (v) => '$' + (v/1000).toFixed(0) + 'K' }
+      },
+      y1: {
+        position: 'right',
+        grid: { display: false }, border: { display: false },
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+// ── CPA Escalation Chart (actual data) ──
+new Chart(document.getElementById('cpaChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Cost Per Lead\n($34,340 ÷ 1,684 leads)', 'Cost Per Intro Offer\n($34,340 ÷ 411 intros)', 'Cost Per Lost Intro\n(56% never convert = $84 burned)'],
+    datasets: [{
+      data: [20.39, 83.55, 83.55],
+      backgroundColor: [blue, orange, red],
+      borderRadius: 8,
+      barPercentage: 0.5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: { label: (ctx) => ` $${ctx.parsed.y.toFixed(2)} per acquisition` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { font: { weight: '600' } } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true,
+        ticks: { callback: (v) => '$' + v }
+      }
+    }
+  }
+});
+
+// ── Campaign Breakdown Chart (Simplified) ──
+const campNames = [
+  'Conversion\nCampaigns',
+  'Lead Form\nCampaigns',
+  'Presale\nConversions',
+  'New Format\n(LF/Traffic)',
+  'Other\n(BF, Sales)'
+];
+const campSpend = [17490, 10120, 10377, 5209, 520];
+const campLeads = [857, 554, 0, 1043, 22];
+
+new Chart(document.getElementById('campaignBreakdownChart'), {
+  type: 'bar',
+  data: {
+    labels: campNames,
+    datasets: [
+      {
+        label: 'Spend ($CAD)',
+        data: campSpend,
+        backgroundColor: red,
+        borderRadius: 4,
+        barPercentage: 0.8,
+        categoryPercentage: 0.7,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Leads',
+        data: campLeads,
+        backgroundColor: blue,
+        borderRadius: 4,
+        barPercentage: 0.8,
+        categoryPercentage: 0.7,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => {
+            if (ctx.dataset.label === 'Spend ($CAD)') return ` Spend: $${ctx.parsed.y.toLocaleString()}`;
+            return ` Leads: ${ctx.parsed.y}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 }, maxRotation: 45 } },
+      y: {
+        position: 'left',
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true,
+        ticks: { callback: (v) => '$' + (v/1000).toFixed(0) + 'K' }
+      },
+      y1: {
+        position: 'right',
+        grid: { display: false }, border: { display: false },
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+// ── Member Value Tier Charts ──
+// Excluding 18 trainers ($0)
+const tierLabels = ['Premium ($196+/mo)', 'Mid-Tier ($100–195)', 'Low-Tier (Under $100)'];
+const tierCounts = [132, 57, 41]; // members
+const tierRevenue = [31632, 6471, 2568]; // $/mo
+const tierColors = [green, gold, red];
+
+new Chart(document.getElementById('memberTierCountChart'), {
+  type: 'doughnut',
+  data: {
+    labels: tierLabels,
+    datasets: [{
+      data: tierCounts,
+      backgroundColor: tierColors,
+      borderWidth: 3,
+      borderColor: '#ffffff',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 14, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: { label: (ctx) => ` ${ctx.parsed} members (${Math.round(ctx.parsed / 230 * 100)}%)` }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('memberTierRevenueChart'), {
+  type: 'doughnut',
+  data: {
+    labels: tierLabels,
+    datasets: [{
+      data: tierRevenue,
+      backgroundColor: tierColors,
+      borderWidth: 3,
+      borderColor: '#ffffff',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 14, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: { label: (ctx) => ` $${ctx.parsed.toLocaleString()}/mo (${Math.round(ctx.parsed / 40671 * 100)}%)` }
+      }
+    }
+  }
+});
+
+// ── Member Value Scatter ──
+new Chart(document.getElementById('memberValueScatter'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'STRONG Human\n$295', 'STRONG Human 6M\n$266', 'STRONG 8\n$219', 'STRONG 12\n$217',
+      'STRONG 8 6M\n$196', 'STRONG 4\n$118', 'STRONG 4 6M\n$108',
+      'Human $75', 'Human 4M\n$69', 'VIP3 $69', 'VIP2 $64', 'VIP1 $59', '2-Session\n$53'
+    ],
+    datasets: [{
+      label: 'Monthly Revenue ($)',
+      data: [5310, 11695, 6137, 2600, 5890, 3670, 2801, 225, 345, 207, 576, 1003, 212],
+      backgroundColor: [green, green, green, green, green, gold, gold, red, red, red, red, red, red],
+      borderRadius: 6,
+      barPercentage: 0.7,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => {
+            const counts = [18, 44, 28, 12, 30, 31, 26, 3, 5, 3, 9, 17, 4];
+            return [` Revenue: $${ctx.parsed.y.toLocaleString()}/mo`, ` Members: ${counts[ctx.dataIndex]}`];
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true, ticks: { callback: (v) => '$' + (v/1000).toFixed(0) + 'K' }
+      }
+    }
+  }
+});
+
+// ── Kelowna Charts ──
+const kelownaWeeks = ['Dec 8','Dec 15','Dec 22','Dec 29','Jan 5','Jan 12','Jan 19','Jan 26','Feb 2','Feb 9','Feb 16','Feb 23','Mar 2'];
+const kelownaGross = [13111, 11723, 14688, 14410, 19094, 15427, 14611, 19948, 21173, 19065, 14593, 23694, 19605];
+const kelownaIntros = [1, 7, 10, 41, 52, 44, 33, 50, 46, 26, 11, 19, 15];
+const kelownaNewMembers = [4, 1, 3, 5, 10, 1, 6, 11, 16, 9, 15, 17, 14];
+const kelownaCPL = [15.30, 11.36, 7.90, 2.50, 3.77, 5.39, 7.44, 7.43, 10.27, 8.42, 7.70, 12.11, 10.19];
+const kelownaCPC = [9.95, 4.11, 3.80, 1.17, 2.20, 2.90, 2.96, 2.79, 4.95, 2.64, 4.89, 4.93, 4.17];
+
+new Chart(document.getElementById('kelownaRevenueChart'), {
+  type: 'bar',
+  data: {
+    labels: kelownaWeeks,
+    datasets: [{
+      label: 'Gross Revenue',
+      data: kelownaGross,
+      backgroundColor: (ctx) => ctx.parsed.y >= 19000 ? green : gold,
+      borderRadius: 6,
+      barPercentage: 0.7,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: { label: (ctx) => ` $${ctx.parsed.y.toLocaleString()}` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true, ticks: { callback: (v) => '$' + (v/1000).toFixed(0) + 'K' }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('kelownaIntroMemberChart'), {
+  type: 'line',
+  data: {
+    labels: kelownaWeeks,
+    datasets: [
+      {
+        label: 'Intro Offers/Week',
+        data: kelownaIntros,
+        borderColor: orange,
+        backgroundColor: orangeLight,
+        fill: true,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: orange,
+        borderWidth: 2.5
+      },
+      {
+        label: 'New Members/Week',
+        data: kelownaNewMembers,
+        borderColor: green,
+        backgroundColor: greenLight,
+        fill: true,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: green,
+        borderWidth: 2.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: tooltipConfig
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true }
+    }
+  }
+});
+
+new Chart(document.getElementById('kelownaCostChart'), {
+  type: 'line',
+  data: {
+    labels: kelownaWeeks,
+    datasets: [
+      {
+        label: 'Cost Per Meta Lead',
+        data: kelownaCPL,
+        borderColor: blue,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: blue,
+        borderWidth: 2.5
+      },
+      {
+        label: 'Cost Per Contact',
+        data: kelownaCPC,
+        borderColor: gold,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: gold,
+        borderWidth: 2.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: { label: (ctx) => ` $${ctx.parsed.y.toFixed(2)}` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        beginAtZero: true, ticks: { callback: (v) => '$' + v }
+      }
+    }
+  }
+});
+
+// ── Cancellations by Month Chart ──
+const cancMonths = ['Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+const cancData = [26, 19, 13, 21, 16, 16, 7, 20, 20, 5, 16, 18, 12, 16, 5];
+
+new Chart(document.getElementById('cancellationsByMonthChart'), {
+  type: 'bar',
+  data: {
+    labels: cancMonths,
+    datasets: [{
+      label: 'Cancellations',
+      data: cancData,
+      backgroundColor: red,
+      borderRadius: 6,
+      barPercentage: 0.65,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: ink, padding: 12, cornerRadius: 8 }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true }
+    }
+  }
+});
+
+// ── Net Member Growth Chart ──
+const netMonths = ['Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+const membSold = [116, 35, 50, 38, 55, 42, 36, 32, 133, 31, 44, 16, 39, 24, 10];
+const netGrowth = membSold.map((m, i) => m - cancData[i]);
+
+new Chart(document.getElementById('netMemberGrowthChart'), {
+  type: 'bar',
+  data: {
+    labels: netMonths,
+    datasets: [
+      {
+        label: 'Memberships Sold',
+        data: membSold,
+        backgroundColor: green,
+        borderRadius: 4,
+        barPercentage: 0.75,
+        categoryPercentage: 0.7,
+        order: 2
+      },
+      {
+        label: 'Cancellations',
+        data: cancData.map(v => -v),
+        backgroundColor: red,
+        borderRadius: 4,
+        barPercentage: 0.75,
+        categoryPercentage: 0.7,
+        order: 3
+      },
+      {
+        label: 'Net Growth',
+        data: netGrowth,
+        type: 'line',
+        borderColor: gold,
+        backgroundColor: goldLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: (ctx) => netGrowth[ctx.dataIndex] < 0 ? red : gold,
+        borderWidth: 2.5,
+        order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+      tooltip: {
+        backgroundColor: ink, padding: 12, cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => {
+            const val = ctx.parsed.y;
+            if (ctx.dataset.label === 'Cancellations') return ` Cancellations: ${Math.abs(val)}`;
+            if (ctx.dataset.label === 'Net Growth') return ` Net: ${val >= 0 ? '+' : ''}${val}`;
+            return ` Sold: ${val}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false },
+        ticks: {
+          callback: (v) => v >= 0 ? v : ''
+        }
+      }
+    }
+  }
+});
+
+// ── Scroll Animations ──
+// ── Scroll Animations — use rootMargin to trigger early and threshold 0 for tall sections ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Fallback: if any sections aren't visible after 2s, force them visible
+setTimeout(() => {
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+}, 2000);
+</script>
+</body>
+</html>
