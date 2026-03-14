@@ -3,16 +3,27 @@ import { NextRequest, NextResponse } from 'next/server'
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
 
-  // Serve static proposal for thebeach subdomain
+  // thebeach subdomain: block everything except static assets
   if (hostname.includes('thebeach.kaizencollective.com.au')) {
-    if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '') {
+    const path = request.nextUrl.pathname
+
+    // Allow static assets (chart.min.js, fonts, etc)
+    if (path.startsWith('/_next/') || path === '/chart.min.js') {
+      return NextResponse.next()
+    }
+
+    // Root serves the static proposal
+    if (path === '/' || path === '') {
       return NextResponse.rewrite(new URL('/thebeach.html', request.url))
     }
+
+    // Block everything else — don't expose the dashboard or wizard
+    return new NextResponse('Not found', { status: 404 })
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/((?!_next|api|favicon.ico).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }
