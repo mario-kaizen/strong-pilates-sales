@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRONG Yorkville — Growth Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-ink: #1A1A18;
+    --color-cream: #F5F0E8;
+    --color-gold: #C9A84C;
+    --color-charcoal: #2E2E2A;
+    --color-stone: #8C8778;
+    --color-parchment: #EDE8DC;
+    --color-white: #FFFFFF;
+    --color-success: #4A7C59;
+    --color-error: #8B3A3A;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === HERO === */
+  .hero {
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+    padding: 80px 40px 64px;
+    text-align: center;
+  }
+  .hero-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.75rem;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--color-gold); }
+  .hero p {
+    font-weight: 300;
+    font-size: 1.125rem;
+    color: var(--color-stone);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* === CONTAINER === */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* === SUMMARY CARDS === */
+  .summary-section {
+    padding: 64px 24px;
+  }
+  .summary-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .summary-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-parchment);
+    border-radius: 2px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(26,26,24,0.06);
+  }
+  .summary-card .number {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--color-ink);
+    line-height: 1;
+  }
+  .summary-card .number.highlight { color: var(--color-gold); }
+  .summary-card .label {
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+    margin-top: 8px;
+  }
+  .summary-card .change {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .change.up { color: var(--color-success); }
+  .change.down { color: var(--color-error); }
+  .change.flat { color: var(--color-stone); }
+
+  /* === CHART SECTION === */
+  .chart-section {
+    padding: 0 24px 64px;
+  }
+  .chart-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 8px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .chart-section .subtitle {
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 300;
+    max-width: 1100px;
+    margin: 0 auto 32px;
+  }
+  .chart-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--color-white);
+    border: 1px solid var(--color-parchment);
+    border-radius: 2px;
+    padding: 32px 24px 24px;
+    box-shadow: 0 2px 16px rgba(26,26,24,0.06);
+    position: relative;
+  }
+  .chart-wrapper canvas {
+    width: 100% !important;
+    height: 360px !important;
+  }
+  .chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  .chart-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 1px;
+  }
+
+  /* === BREAKDOWN SECTION === */
+  .breakdown-section {
+    padding: 0 24px 80px;
+  }
+  .breakdown-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 8px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .breakdown-section .subtitle {
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 300;
+    max-width: 1100px;
+    margin: 0 auto 32px;
+  }
+  .breakdown-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .breakdown-chart-col {
+    background: var(--color-white);
+    border: 1px solid var(--color-parchment);
+    border-radius: 2px;
+    padding: 28px 24px 20px;
+    box-shadow: 0 2px 16px rgba(26,26,24,0.06);
+  }
+  .breakdown-chart-col canvas {
+    width: 100% !important;
+    height: 280px !important;
+  }
+  .breakdown-table-col {}
+  .breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-white);
+    font-size: 0.875rem;
+    border: 1px solid var(--color-parchment);
+    border-radius: 2px;
+    box-shadow: 0 2px 16px rgba(26,26,24,0.06);
+  }
+  .breakdown-table thead th {
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    text-align: right;
+  }
+  .breakdown-table thead th:first-child { text-align: left; }
+  .breakdown-table tbody td {
+    padding: 10px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--color-parchment);
+    font-variant-numeric: tabular-nums;
+  }
+  .breakdown-table tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .breakdown-table .highlight-row {
+    background: rgba(201,168,76,0.08);
+  }
+  .breakdown-table .total-row {
+    background: var(--color-parchment);
+  }
+  .breakdown-table .total-row td {
+    border-bottom: none;
+  }
+  .breakdown-note {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--color-stone);
+    line-height: 1.6;
+  }
+  .breakdown-note strong {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .breakdown-wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* === TABLE SECTION === */
+  .table-section {
+    padding: 0 24px 80px;
+  }
+  .table-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 8px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .table-section .subtitle {
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 300;
+    max-width: 1100px;
+    margin: 0 auto 32px;
+  }
+
+  .table-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-x: auto;
+    border-radius: 2px;
+    box-shadow: 0 2px 16px rgba(26,26,24,0.06);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-white);
+    font-size: 0.9rem;
+  }
+  thead th {
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  thead th:first-child { text-align: left; }
+
+  tbody td {
+    padding: 12px 16px;
+    text-align: right;
+    border-bottom: 1px solid var(--color-parchment);
+    font-variant-numeric: tabular-nums;
+  }
+  tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Alternating rows */
+  tbody tr:nth-child(even) { background: rgba(245,240,232,0.35); }
+
+  /* Takeover divider */
+  .takeover-row td {
+    background: var(--color-gold) !important;
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center !important;
+    padding: 10px 16px;
+    border-bottom: 2px solid var(--color-gold);
+  }
+
+  /* KC rows */
+  .kc-row {
+    background: rgba(201,168,76,0.07) !important;
+  }
+  .kc-row td:first-child {
+    position: relative;
+    padding-left: 28px;
+  }
+  .kc-row td:first-child::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-gold);
+  }
+
+  /* Improvement pills */
+  .pill {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .pill.up { background: rgba(74,124,89,0.12); color: var(--color-success); }
+  .pill.down { background: rgba(139,58,58,0.1); color: var(--color-error); }
+
+  /* === AVERAGES COMPARISON === */
+  .comparison-section {
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+    padding: 64px 24px;
+  }
+  .comparison-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 8px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .comparison-section .subtitle {
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 300;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+  }
+
+  .comparison-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .comparison-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .comparison-card .metric-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+    margin-bottom: 16px;
+  }
+  .comparison-card .before-after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .comparison-card .val {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .comparison-card .val.before { color: var(--color-stone); }
+  .comparison-card .val.after { color: var(--color-gold); }
+  .comparison-card .arrow {
+    color: var(--color-stone);
+    font-size: 1.2rem;
+  }
+  .comparison-card .pct {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  .comparison-card .pct.up { color: var(--color-success); }
+  .comparison-card .pct.down { color: var(--color-error); }
+  .comparison-card .pct.flat { color: var(--color-stone); }
+  .comparison-card .period-labels {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 8px;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+  }
+
+  /* === NARRATIVE === */
+  .narrative-section {
+    padding: 64px 24px;
+  }
+  .narrative-section .container { max-width: 680px; }
+  .narrative-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 24px;
+  }
+  .narrative-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--color-gold);
+    margin-top: 12px;
+  }
+  .narrative-section p {
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+    margin-bottom: 20px;
+    max-width: 65ch;
+  }
+  .narrative-section strong { font-weight: 700; }
+  .narrative-section .gold { color: var(--color-gold); font-weight: 700; }
+
+  /* === FOOTER === */
+  .footer {
+    background: var(--color-ink);
+    color: var(--color-stone);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .footer span { color: var(--color-gold); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    .summary-card .number { font-size: 2rem; }
+    thead th, tbody td { padding: 10px 10px; font-size: 0.8rem; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: 1.75rem; }
+    .summary-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Kaizen Collective &times; STRONG Pilates</div>
+  <h1>Yorkville <span>Growth Report</span></h1>
+  <p>Weekly performance from December 2025 through March 2026. Kaizen took over paid acquisition on February 23.</p>
+</section>
+
+<!-- SUMMARY CARDS — Since KC Takeover -->
+<section class="summary-section">
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="number">137</div>
+      <div class="label">New Contacts</div>
+      <div class="change flat">Since Feb 23</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">105</div>
+      <div class="label">Accounts Created</div>
+      <div class="change up">+34% vs prior avg</div>
+    </div>
+    <div class="summary-card">
+      <div class="number highlight">87</div>
+      <div class="label">Intro Offers Purchased</div>
+      <div class="change up">+110% vs prior avg</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">32</div>
+      <div class="label">Memberships + Packages</div>
+      <div class="change flat">Since Feb 23</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHART -->
+<section class="chart-section">
+  <h2>The Visual</h2>
+  <p class="subtitle">Weekly Intro Offers, Accounts Created, Memberships, and Packages &mdash; with the Kaizen takeover marked.</p>
+
+  <div class="chart-wrapper">
+    <canvas id="growthChart"></canvas>
+    <div class="chart-legend">
+      <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#C9A84C;"></div> Intro Offers</div>
+      <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#1A1A18;"></div> Accounts Created</div>
+      <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#4A7C59;"></div> Memberships</div>
+      <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#8C8778;"></div> Packages</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO OFFER BREAKDOWN -->
+<section class="breakdown-section">
+  <h2>Intro Offers: New vs Re-starters</h2>
+  <p class="subtitle">Not all intro offer purchases are equal. Some came from Hayley's SMS remarketing campaign to existing contacts. Here's the split &mdash; and the trend is clear.</p>
+
+  <div class="breakdown-wrapper">
+    <div class="breakdown-chart-col">
+      <canvas id="breakdownChart"></canvas>
+    </div>
+    <div class="breakdown-table-col">
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Total</th>
+            <th>New</th>
+            <th>Re-start</th>
+            <th>% New</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Feb 23 &ndash; Mar 01</td>
+            <td>15</td>
+            <td>9</td>
+            <td>6</td>
+            <td>60%</td>
+          </tr>
+          <tr>
+            <td>Mar 02 &ndash; Mar 08</td>
+            <td>40</td>
+            <td>23</td>
+            <td>17</td>
+            <td>57%</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>Mar 09 &ndash; Mar 15</td>
+            <td>32</td>
+            <td><strong>24</strong></td>
+            <td>8</td>
+            <td><strong>75%</strong></td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td><strong>87</strong></td>
+            <td><strong>56</strong></td>
+            <td><strong>31</strong></td>
+            <td><strong>64%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="breakdown-note">Re-starters = contacts or join dates before Feb 23. The SMS remarketing wave peaked in week 2 and is tapering. By week 3, <strong>3 out of 4</strong> intro purchases were net-new from Kaizen ads.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY TABLE -->
+<section class="table-section">
+  <h2>Week by Week</h2>
+  <p class="subtitle">All metrics sourced from Grow (GHL). ClassPass contacts excluded from New Contacts and Accounts Created. Intro Offers, Memberships, and Packages counted by purchase date.</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>New Contacts</th>
+          <th>Accounts Created</th>
+          <th>Intro Offers</th>
+          <th>Memberships</th>
+          <th>Packages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dec 01 &ndash; Dec 07</td>
+          <td>47</td>
+          <td>43</td>
+          <td>23</td>
+          <td>4</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>Dec 08 &ndash; Dec 14</td>
+          <td>45</td>
+          <td>28</td>
+          <td>12</td>
+          <td>8</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td>Dec 15 &ndash; Dec 21</td>
+          <td>35</td>
+          <td>19</td>
+          <td>9</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Dec 22 &ndash; Dec 28</td>
+          <td>36</td>
+          <td>26</td>
+          <td>9</td>
+          <td>5</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Dec 29 &ndash; Jan 04</td>
+          <td>52</td>
+          <td>28</td>
+          <td>21</td>
+          <td>4</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Jan 05 &ndash; Jan 11</td>
+          <td>65</td>
+          <td>39</td>
+          <td>27</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Jan 12 &ndash; Jan 18</td>
+          <td>66</td>
+          <td>32</td>
+          <td>22</td>
+          <td>2</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Jan 19 &ndash; Jan 25</td>
+          <td>59</td>
+          <td>21</td>
+          <td>11</td>
+          <td>2</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Jan 26 &ndash; Feb 01</td>
+          <td>54</td>
+          <td>29</td>
+          <td>11</td>
+          <td>4</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>Feb 02 &ndash; Feb 08</td>
+          <td>74</td>
+          <td>31</td>
+          <td>18</td>
+          <td>2</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>Feb 09 &ndash; Feb 15</td>
+          <td>79</td>
+          <td>48</td>
+          <td>29</td>
+          <td>3</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>Feb 16 &ndash; Feb 22</td>
+          <td>25</td>
+          <td>28</td>
+          <td>14</td>
+          <td>1</td>
+          <td>12</td>
+        </tr>
+
+        <!-- TAKEOVER DIVIDER -->
+        <tr class="takeover-row">
+          <td colspan="6">Kaizen Collective Takeover &mdash; February 23, 2026</td>
+        </tr>
+
+        <tr class="kc-row">
+          <td>Feb 23 &ndash; Mar 01</td>
+          <td>27</td>
+          <td>22</td>
+          <td>15</td>
+          <td>2</td>
+          <td>8</td>
+        </tr>
+        <tr class="kc-row">
+          <td>Mar 02 &ndash; Mar 08</td>
+          <td>60</td>
+          <td>46</td>
+          <td>40 <span class="pill up">+133%</span></td>
+          <td>6</td>
+          <td>7</td>
+        </tr>
+        <tr class="kc-row">
+          <td>Mar 09 &ndash; Mar 15</td>
+          <td>50</td>
+          <td>37</td>
+          <td>32 <span class="pill up">+86%</span></td>
+          <td>0</td>
+          <td>9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comparison-section">
+  <h2>Before &amp; After</h2>
+  <p class="subtitle">Pre-Kaizen average (12 weeks) vs full Kaizen weeks average (Mar 2&ndash;15). First takeover week excluded &mdash; ads were still ramping.</p>
+
+  <div class="comparison-grid">
+    <div class="comparison-card">
+      <div class="metric-label">Accounts Created</div>
+      <div class="before-after">
+        <div class="val before">31</div>
+        <div class="arrow">&rarr;</div>
+        <div class="val after">41.5</div>
+      </div>
+      <div class="period-labels"><span>Before</span><span>After</span></div>
+      <div class="pct up">+34% per week</div>
+    </div>
+    <div class="comparison-card">
+      <div class="metric-label">Intro Offers</div>
+      <div class="before-after">
+        <div class="val before">17.2</div>
+        <div class="arrow">&rarr;</div>
+        <div class="val after">36</div>
+      </div>
+      <div class="period-labels"><span>Before</span><span>After</span></div>
+      <div class="pct up">+110% per week</div>
+    </div>
+    <div class="comparison-card">
+      <div class="metric-label">Memberships</div>
+      <div class="before-after">
+        <div class="val before">3.6</div>
+        <div class="arrow">&rarr;</div>
+        <div class="val after">3</div>
+      </div>
+      <div class="period-labels"><span>Before</span><span>After</span></div>
+      <div class="pct flat">Converting soon</div>
+    </div>
+    <div class="comparison-card">
+      <div class="metric-label">Packages</div>
+      <div class="before-after">
+        <div class="val before">8.4</div>
+        <div class="arrow">&rarr;</div>
+        <div class="val after">8</div>
+      </div>
+      <div class="period-labels"><span>Before</span><span>After</span></div>
+      <div class="pct flat">Stable</div>
+    </div>
+  </div>
+</section>
+
+<!-- NARRATIVE -->
+<section class="narrative-section">
+  <div class="container">
+    <h2>What This Means</h2>
+
+    <p>Kaizen launched STRONG Yorkville's paid acquisition campaign on <strong>February 23, 2026</strong>. Within two full weeks of running, the results are clear.</p>
+
+    <p><strong>Intro Offer purchases more than doubled.</strong> The pre-Kaizen 12-week average was <strong>17.2 per week</strong>. In our first two full weeks, that jumped to <strong>36 per week</strong> &mdash; a <span class="gold">110% increase</span>. This is the top-of-funnel engine working.</p>
+
+    <p><strong>Account creation is up 34%.</strong> More people are signing up, creating accounts, and entering the system. The pipeline is fuller than it's been since opening.</p>
+
+    <p><strong>Memberships and packages are steady</strong> &mdash; and that's expected. The 87 intro offer purchasers since takeover are still working through their 5&ndash;15 day experiences. The conversion wave into memberships and packages will follow over the next 2&ndash;4 weeks as these intro offers complete.</p>
+
+    <p>The first takeover week (Feb 23&ndash;Mar 1) was intentionally lower &mdash; the campaign was in its learning phase. By week two, the ads found their audience and the numbers reflect it.</p>
+
+    <p><strong>The system is building momentum.</strong> More intro offers today means more memberships next month. That's how compound growth works.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Prepared by <span>Kaizen Collective</span> &mdash; March 2026 &mdash; kaizencollective.com.au
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+<script>
+(function() {
+  const weeks = [
+    'Dec 1', 'Dec 8', 'Dec 15', 'Dec 22', 'Dec 29',
+    'Jan 5', 'Jan 12', 'Jan 19', 'Jan 26',
+    'Feb 2', 'Feb 9', 'Feb 16',
+    'Feb 23', 'Mar 2', 'Mar 9'
+  ];
+
+  const intros      = [23, 12, 9, 9, 21, 27, 22, 11, 11, 18, 29, 14, 15, 40, 32];
+  const accounts    = [43, 28, 19, 26, 28, 39, 32, 21, 29, 31, 48, 28, 22, 46, 37];
+  const memberships = [4, 8, 4, 5, 4, 4, 2, 2, 4, 2, 3, 1, 2, 6, 0];
+  const packages    = [18, 12, 5, 3, 6, 5, 6, 4, 11, 8, 11, 12, 8, 7, 9];
+
+  // Takeover index (Feb 23 = index 12)
+  const takeoverIdx = 12;
+
+  const ctx = document.getElementById('growthChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: weeks,
+      datasets: [
+        {
+          label: 'Intro Offers',
+          data: intros,
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.08)',
+          borderWidth: 3,
+          pointRadius: function(context) {
+            return context.dataIndex >= takeoverIdx ? 6 : 4;
+          },
+          pointBackgroundColor: function(context) {
+            return context.dataIndex >= takeoverIdx ? '#C9A84C' : '#F5F0E8';
+          },
+          pointBorderColor: '#C9A84C',
+          pointBorderWidth: 2,
+          fill: true,
+          tension: 0.3,
+          order: 1
+        },
+        {
+          label: 'Accounts Created',
+          data: accounts,
+          borderColor: '#1A1A18',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 3,
+          pointBackgroundColor: '#F5F0E8',
+          pointBorderColor: '#1A1A18',
+          pointBorderWidth: 1.5,
+          fill: false,
+          tension: 0.3,
+          order: 2
+        },
+        {
+          label: 'Memberships',
+          data: memberships,
+          borderColor: '#4A7C59',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          pointRadius: 3,
+          pointBackgroundColor: '#F5F0E8',
+          pointBorderColor: '#4A7C59',
+          pointBorderWidth: 1.5,
+          borderDash: [6, 3],
+          fill: false,
+          tension: 0.3,
+          order: 3
+        },
+        {
+          label: 'Packages',
+          data: packages,
+          borderColor: '#8C8778',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          pointRadius: 3,
+          pointBackgroundColor: '#F5F0E8',
+          pointBorderColor: '#8C8778',
+          pointBorderWidth: 1.5,
+          borderDash: [6, 3],
+          fill: false,
+          tension: 0.3,
+          order: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1A1A18',
+          titleFont: { family: "'DM Sans', sans-serif", weight: '500', size: 12 },
+          bodyFont: { family: "'DM Sans', sans-serif", weight: '400', size: 12 },
+          padding: 12,
+          cornerRadius: 2,
+          displayColors: true,
+          boxPadding: 4
+        },
+        annotation: {
+          annotations: {
+            takeoverLine: {
+              type: 'line',
+              xMin: takeoverIdx - 0.5,
+              xMax: takeoverIdx - 0.5,
+              borderColor: '#C9A84C',
+              borderWidth: 2,
+              borderDash: [8, 4],
+              label: {
+                display: true,
+                content: 'KAIZEN TAKEOVER',
+                position: 'start',
+                backgroundColor: '#C9A84C',
+                color: '#1A1A18',
+                font: { family: "'DM Sans', sans-serif", weight: '700', size: 10 },
+                letterSpacing: '0.08em',
+                padding: { top: 4, bottom: 4, left: 8, right: 8 },
+                borderRadius: 2
+              }
+            },
+            takeoverZone: {
+              type: 'box',
+              xMin: takeoverIdx - 0.5,
+              xMax: weeks.length - 0.5,
+              backgroundColor: 'rgba(201,168,76,0.04)',
+              borderWidth: 0
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            font: { family: "'DM Sans', sans-serif", size: 11, weight: '400' },
+            color: '#8C8778'
+          },
+          border: { color: '#EDE8DC' }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(237,232,220,0.6)', lineWidth: 1 },
+          ticks: {
+            font: { family: "'DM Sans', sans-serif", size: 11, weight: '400' },
+            color: '#8C8778',
+            stepSize: 10
+          },
+          border: { display: false }
+        }
+      }
+    }
+  });
+})();
+
+// Breakdown stacked bar chart
+(function() {
+  const ctx = document.getElementById('breakdownChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Feb 23–\nMar 01', 'Mar 02–\nMar 08', 'Mar 09–\nMar 15'],
+      datasets: [
+        {
+          label: 'New (from ads)',
+          data: [9, 23, 24],
+          backgroundColor: '#C9A84C',
+          borderRadius: { topLeft: 2, topRight: 2 },
+          barPercentage: 0.6,
+        },
+        {
+          label: 'Re-starters (SMS)',
+          data: [6, 17, 8],
+          backgroundColor: '#EDE8DC',
+          borderColor: '#D5CFC3',
+          borderWidth: 1,
+          barPercentage: 0.6,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { family: "'DM Sans', sans-serif", size: 11, weight: '500' },
+            color: '#1A1A18',
+            padding: 16,
+            usePointStyle: true,
+            pointStyle: 'rectRounded',
+          }
+        },
+        tooltip: {
+          backgroundColor: '#1A1A18',
+          titleFont: { family: "'DM Sans', sans-serif", weight: '500', size: 12 },
+          bodyFont: { family: "'DM Sans', sans-serif", weight: '400', size: 12 },
+          padding: 12,
+          cornerRadius: 2,
+          callbacks: {
+            afterBody: function(items) {
+              const idx = items[0].dataIndex;
+              const totals = [15, 40, 32];
+              const newPcts = [60, 57, 75];
+              return '\nTotal: ' + totals[idx] + '  |  ' + newPcts[idx] + '% new';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: {
+            font: { family: "'DM Sans', sans-serif", size: 11, weight: '500' },
+            color: '#8C8778',
+            maxRotation: 0,
+          },
+          border: { color: '#EDE8DC' }
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          grid: { color: 'rgba(237,232,220,0.6)', lineWidth: 1 },
+          ticks: {
+            font: { family: "'DM Sans', sans-serif", size: 11 },
+            color: '#8C8778',
+            stepSize: 10,
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'INTRO OFFERS',
+            font: { family: "'DM Sans', sans-serif", size: 10, weight: '500' },
+            color: '#8C8778',
+            padding: { bottom: 8 },
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
