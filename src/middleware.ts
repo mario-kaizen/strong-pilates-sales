@@ -21,6 +21,17 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Not found', { status: 404 })
   }
 
+  // Static proposal rewrites — serve HTML reports at clean URLs
+  const path = request.nextUrl.pathname
+  const staticReports: Record<string, string> = {
+    '/wellingtonwest': '/wellingtonwest/index.html',
+    '/coalharbour': '/coalharbour.html',
+  }
+
+  if (staticReports[path]) {
+    return NextResponse.rewrite(new URL(staticReports[path], request.url))
+  }
+
   return NextResponse.next()
 }
 
