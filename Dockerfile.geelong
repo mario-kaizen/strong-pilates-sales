@@ -1,0 +1,4 @@
+FROM nginx:alpine
+COPY strong-geelong-proposal.html /usr/share/nginx/html/index.html
+COPY nginx-geelong.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

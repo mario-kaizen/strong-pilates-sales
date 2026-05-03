@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRONG Pilates | Geelong Growth Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+if (typeof Chart === 'undefined') {
+  document.write('<script src="chart.min.js"><\/script>');
+}
+</script>
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --cream-dark: #F0EBE3;
+    --ink: #1A1A1A;
+    --ink-light: #3D3D3D;
+    --ink-muted: #6B6B6B;
+    --gold: #C8A951;
+    --gold-light: #D4BC72;
+    --gold-dark: #A88B3A;
+    --gold-glow: rgba(200, 169, 81, 0.15);
+    --red: #C44536;
+    --red-light: rgba(196, 69, 54, 0.08);
+    --red-glow: rgba(196, 69, 54, 0.12);
+    --green: #4A7C59;
+    --green-light: rgba(74, 124, 89, 0.08);
+    --orange: #D4853A;
+    --orange-light: rgba(212, 133, 58, 0.08);
+    --blue: #4A6FA5;
+    --blue-light: rgba(74, 111, 165, 0.08);
+    --purple: #7B5EA7;
+    --purple-light: rgba(123, 94, 167, 0.15);
+    --divider: rgba(26, 26, 26, 0.08);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 50px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100vw; right: -100vw;
+    height: 100%;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 50%, var(--cream) 100%);
+    z-index: -1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-glow);
+    border: 1px solid rgba(200, 169, 81, 0.25);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    color: var(--ink-muted);
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-meta strong {
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* Section */
+  .section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--ink-muted);
+    max-width: 640px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  /* Stat Cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--divider);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stat-card:hover::after { opacity: 1; }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .stat-card.danger .stat-value { color: var(--red); }
+  .stat-card.danger { background: var(--red-light); border-color: rgba(196, 69, 54, 0.12); }
+  .stat-card.success .stat-value { color: var(--green); }
+  .stat-card.success { background: var(--green-light); border-color: rgba(74, 124, 89, 0.12); }
+  .stat-card.warning .stat-value { color: var(--orange); }
+  .stat-card.warning { background: var(--orange-light); border-color: rgba(212, 133, 58, 0.12); }
+
+  /* Chart Container */
+  .chart-wrap {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--divider);
+    margin-bottom: 24px;
+  }
+  .chart-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .chart-wrap .chart-subtitle {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Callout Box */
+  .callout {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: var(--radius-lg);
+    padding: 40px 48px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .callout h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .callout p {
+    font-size: 15px;
+    color: rgba(250, 247, 242, 0.7);
+    line-height: 1.8;
+    position: relative;
+    max-width: 600px;
+  }
+  .callout .callout-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .callout .callout-stat-label {
+    font-size: 14px;
+    color: rgba(250, 247, 242, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    position: relative;
+  }
+  .callout-flex {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .callout-left { flex: 1; }
+  .callout-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .data-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-muted);
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--divider);
+  }
+  .data-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--divider);
+    vertical-align: middle;
+  }
+  .data-table tbody tr:hover {
+    background: rgba(200, 169, 81, 0.04);
+  }
+  .data-table .plan-name { font-weight: 600; }
+  .data-table .plan-revenue {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .data-table .plan-bar { width: 120px; }
+  .data-table .plan-bar-inner {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--gold);
+    transition: width 1s ease;
+  }
+
+  /* Insight Rows */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .insight-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-sm);
+  }
+  .insight-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .insight-card .insight-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  /* Chart Annotation Note */
+  .chart-note {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(200, 169, 81, 0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .chart-note strong {
+    color: var(--ink-light);
+  }
+
+  /* Needs List (checkmark styling) */
+  .needs-list {
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0;
+  }
+  .needs-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 6px;
+    color: var(--ink-muted);
+  }
+  .needs-list li::before {
+    content: '\2610';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  /* Track Cards */
+  .track-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--divider);
+    margin-bottom: 24px;
+  }
+  .track-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .track-card .track-subtitle {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+  }
+  .track-card ul {
+    margin: 0 0 0 16px;
+    padding: 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+    line-height: 2;
+  }
+  .track-card ul li strong {
+    color: var(--ink-light);
+  }
+
+  /* Comparison layout */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .compare-col {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-sm);
+  }
+  .compare-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .compare-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .compare-col ul li {
+    position: relative;
+    padding: 8px 0 8px 28px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    border-bottom: 1px solid var(--divider);
+  }
+  .compare-col ul li:last-child { border-bottom: none; }
+  .compare-col ul li::before {
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+  }
+  .compare-col.problem ul li::before {
+    content: '\2717';
+    color: var(--red);
+  }
+  .compare-col.solution ul li::before {
+    content: '\2714';
+    color: var(--green);
+  }
+
+  /* Content type cards */
+  .content-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-sm);
+  }
+  .content-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .content-card .content-freq {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+  }
+  .content-card p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  /* Timeline week */
+  .week-block {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .week-dot {
+    position: absolute;
+    left: -33px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid var(--cream);
+  }
+
+  /* Flow steps */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px auto;
+    max-width: 700px;
+  }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    bottom: -1px;
+    width: 2px;
+    height: 16px;
+    background: var(--divider);
+    z-index: 1;
+  }
+  .flow-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .flow-text {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .flow-text strong {
+    color: var(--ink-light);
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 12px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; }
+  }
+
+  /* Chart containers */
+  .chart-container {
+    position: relative;
+    width: 100%;
+  }
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .page { padding: 0 20px; }
+    .hero { padding: 48px 0 36px; }
+    .hero h1 { font-size: 32px; }
+    .hero-sub { font-size: 15px; }
+    .hero-meta { flex-direction: column; gap: 8px; font-size: 12px; }
+
+    .section { padding: 36px 0; }
+    .section-title { font-size: 24px; }
+    .section-desc { font-size: 14px; }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .stat-card { padding: 16px; }
+    .stat-value { font-size: 28px; }
+    .stat-label { font-size: 10px; }
+    .stat-sub { font-size: 11px; }
+
+    .chart-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .chart-wrap { padding: 20px; border-radius: 14px; }
+    .chart-wrap h3 { font-size: 17px; }
+
+    .insight-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .insight-card { padding: 18px; }
+    .insight-card .insight-number { font-size: 24px; }
+
+    .callout { padding: 24px 20px; border-radius: 14px; }
+    .callout h3 { font-size: 20px; }
+    .callout p { font-size: 13px; }
+    .callout-flex { flex-direction: column; gap: 20px; }
+    .callout-right { text-align: left; }
+    .callout .callout-stat { font-size: 48px; }
+
+    .compare-grid { grid-template-columns: 1fr; }
+    .track-card { padding: 24px; }
+
+    .data-table { font-size: 12px; }
+    .data-table thead th { padding: 8px 10px; font-size: 9px; }
+    .data-table tbody td { padding: 10px; }
+    .data-table .plan-bar { display: none; }
+
+    .chart-wrap div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    .chart-wrap div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .stat-value { font-size: 24px; }
+    .callout .callout-stat { font-size: 36px; }
+  }
+
+  /* Print */
+  @media print {
+    .page { padding: 0 20px; }
+    .hero { padding: 40px 0 30px; }
+    .section { padding: 30px 0; }
+    .stat-value { font-size: 28px; }
+    .callout { break-inside: avoid; }
+    .chart-wrap { break-inside: avoid; }
+    .fade-in { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <div class="hero-badge">Growth Strategy</div>
+    <h1>STRONG Pilates<br><em>Geelong</em></h1>
+    <p class="hero-sub">A custom growth strategy to add 40 net members by June 30 and build systems for sustained +10 per month.</p>
+    <div class="hero-meta">
+      <span><strong>Prepared for</strong>&ensp;Mitch Thompson</span>
+      <span><strong>Date</strong>&ensp;May 3, 2026</span>
+      <span><strong>Data Source</strong>&ensp;Hapana Core</span>
+    </div>
+  </div>
+
+
+  <!-- Section 1: Where You Stand Today -->
+  <div class="section fade-in" id="section-01">
+    <div class="section-label">01 | Snapshot</div>
+    <div class="section-title">Where You Stand Today</div>
+    <div class="section-desc">A clear picture of your current membership base, revenue, and pipeline, pulled directly from your studio's data.</div>
+
+    <div class="stats-grid">
+      <div class="stat-card danger">
+        <div class="stat-label">Active Members</div>
+        <div class="stat-value">57</div>
+        <div class="stat-sub">Paying weekly memberships</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-label">Suspended</div>
+        <div class="stat-value">30</div>
+        <div class="stat-sub">At risk of cancelling</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Intro Offers</div>
+        <div class="stat-value">42</div>
+        <div class="stat-sub">In the building right now</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Weekly Revenue</div>
+        <div class="stat-value">$3.4K</div>
+        <div class="stat-sub">~$14.6K per month from memberships</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p style="max-width: 100%;">You have 57 paying members generating $3,367 per week. Another 30 are suspended, at risk of leaving without proactive outreach. And 42 people are currently on an intro offer inside the studio. The base is small, but the pipeline is there.</p>
+    </div>
+
+    <!-- Net Member Movement Chart -->
+    <div class="chart-wrap">
+      <h3>Net Member Movement</h3>
+      <div class="chart-subtitle">Memberships sold vs. cancelled, month over month (Sep 2025 to Apr 2026)</div>
+      <div class="chart-container" style="height: 320px;"><canvas id="netMovementChart"></canvas></div>
+      <div class="chart-note">
+        <strong>Key finding:</strong> In the last 8 months, Geelong has not had a single month of net positive member growth. Every month, more members leave than join.
+      </div>
+    </div>
+
+    <!-- Membership Plan Mix -->
+    <div class="chart-wrap">
+      <h3>Membership Plan Mix</h3>
+      <div class="chart-subtitle">57 active paid memberships by plan type</div>
+      <div class="chart-container" style="height: 260px;"><canvas id="planMixChart"></canvas></div>
+      <div class="chart-note">
+        <strong>Revenue quality is strong.</strong> 54% of your members are on the premium Foundation plan at $59/week. The revenue per member is high. The base is just too small.
+      </div>
+    </div>
+
+    <!-- Plan Breakdown Table -->
+    <div class="chart-wrap" style="overflow-y: auto;">
+      <h3>Plan Breakdown</h3>
+      <div class="chart-subtitle">All 57 active paid memberships ranked by weekly revenue contribution</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Members</th>
+            <th>$/wk (avg)</th>
+            <th>Weekly Revenue</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="planTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Churn Summary -->
+    <div class="chart-wrap">
+      <h3>Churn Summary</h3>
+      <div class="chart-subtitle">188 cancellations since August 2025</div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 0;">
+        <div style="text-align: center; padding: 16px; background: var(--red-light); border-radius: 10px;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--red);">188</div>
+          <div style="font-size: 12px; color: var(--ink-muted); margin-top: 4px;">Total Cancellations</div>
+        </div>
+        <div style="text-align: center; padding: 16px; background: var(--orange-light); border-radius: 10px;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--orange);">29%</div>
+          <div style="font-size: 12px; color: var(--ink-muted); margin-top: 4px;">No Reason Logged</div>
+        </div>
+        <div style="text-align: center; padding: 16px; background: var(--blue-light); border-radius: 10px;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--blue);">98</div>
+          <div style="font-size: 12px; color: var(--ink-muted); margin-top: 4px;">Sep to Nov Spike</div>
+        </div>
+        <div style="text-align: center; padding: 16px; background: var(--green-light); border-radius: 10px;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--green);">15</div>
+          <div style="font-size: 12px; color: var(--ink-muted); margin-top: 4px;">April (most recent)</div>
+        </div>
+      </div>
+      <div style="font-size: 12px; color: var(--ink-muted); line-height: 1.7;">
+        <strong>Context:</strong> The Sep to Nov 2025 spike (98 cancellations in 3 months) aligns with pre-sale commitment periods expiring. Churn has slowed since January, but it still exceeds intake every month. Top reasons where logged: Personal (45), Moving (16), Administrative (16), Financial (11), Medical (10).
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Section 2: The Target -->
+  <div class="section fade-in" id="section-02">
+    <div class="section-label">02 | The Target</div>
+    <div class="section-title">Where We're Going</div>
+    <div class="section-desc">One clear, measurable goal and the financial impact of hitting it.</div>
+
+    <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="stat-card success">
+        <div class="stat-label">Net Member Injection</div>
+        <div class="stat-value">+40</div>
+        <div class="stat-sub">By June 30: from 57 to 97 active paid members</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Sustained Growth</div>
+        <div class="stat-value">+10/mo</div>
+        <div class="stat-sub">Systems that keep working after the push</div>
+      </div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>40 additional members at your current average of $59/week adds $2,360 per week to your membership revenue.</h3>
+          <p>That is $10,218 per month, taking you from $14.6K to approximately $24.8K monthly.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--green);">$24.8K</div>
+          <div class="callout-stat-label">Target Monthly Revenue</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <h3>Reality Check</h3>
+      <div class="chart-subtitle">The numbers behind +40 net</div>
+      <p style="font-size: 14px; color: var(--ink-muted); line-height: 1.8; padding: 8px 0;">With current churn running at approximately 15 cancellations per month, hitting +40 net means selling roughly 55 to 60 new memberships between now and June 30. This plan is built to do that through two channels: a continuous intro offer funnel feeding your sales pipeline, and an Open Day event at the end of June designed to convert in volume.</p>
+      <div style="margin-top: 12px; padding: 12px 16px; background: var(--green-light); border-radius: 8px; font-size: 13px; color: var(--ink-muted);">
+        <strong style="color: var(--green);">The second goal matters just as much.</strong> After the push, the funnel, the automations, and the content engine stay running. +10 net per month is the baseline, not the ceiling.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Section 3: The Strategy -->
+  <div class="section fade-in" id="section-03">
+    <div class="section-label">03 | The Strategy</div>
+    <div class="section-title">Two Tracks, One Push</div>
+    <div class="section-desc">Why this is not just "run more ads" and how both tracks work together.</div>
+
+    <div class="callout" style="margin-top: 0; margin-bottom: 32px;">
+      <p style="max-width: 100%; font-size: 16px; color: rgba(250, 247, 242, 0.85);">Geelong does not have a lead generation problem. You have had 42 intro offers come through the door. The problem is threefold: leads are not converting to members fast enough, members are leaving faster than they are joining, and the marketing is not showing people who you are before they walk in.</p>
+      <p style="max-width: 100%; margin-top: 16px;">Pilates is becoming a commodity. Your offer looks the same as Upstate and Core Plus from the outside. The difference only shows up once someone steps through the door. So we need to bring the experience forward.</p>
+    </div>
+
+    <div class="track-card" style="border-left: 4px solid var(--gold);">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <span style="background: var(--gold-glow); color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Track 1</span>
+        <span style="font-size: 13px; color: var(--ink-muted);">Weeks 1 to 8</span>
+      </div>
+      <h3>Intro Offer Funnel</h3>
+      <div class="track-subtitle">A persistent campaign running from day one through to end of June and beyond. This is the engine that keeps feeding the pipeline.</div>
+      <ul>
+        <li><strong>Funnel over lead forms.</strong> A dedicated landing page that showcases the Geelong studio, the instructors, the experience, and social proof from real members. Not a two-field form that collects a name and phone number with zero context.</li>
+        <li><strong>Multi-avatar targeting.</strong> Geelong is not Bondi. The demographic is wide: young professionals, mums, older adults returning to fitness, people curious about Pilates for the first time. We run separate ad sets for different segments rather than one generic campaign.</li>
+        <li><strong>Proper nurture.</strong> When someone submits, they do not just get a generic "thanks for signing up" SMS. They get a sequence that builds trust, shows them what to expect, and connects them with a real person at the studio before their first session.</li>
+        <li><strong>CRM pipeline visibility.</strong> Every lead tracked from ad click to intro offer purchase to membership conversion. No more guessing who is where.</li>
+      </ul>
+    </div>
+
+    <div class="track-card" style="border-left: 4px solid var(--green);">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <span style="background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Track 2</span>
+        <span style="font-size: 13px; color: var(--ink-muted);">Weeks 6 to 8</span>
+      </div>
+      <h3>Open Day Event</h3>
+      <div class="track-subtitle">The big moment. End of June. This is where the database you have been building gets activated in one concentrated push.</div>
+      <ul>
+        <li><strong>Win comp.</strong> Launches two weeks before the event. Tag, share, follow to enter. Prizes drawn at the event, and you must attend to win.</li>
+        <li><strong>Local partner activation.</strong> LSK already reached out wanting to feature Geelong. Co-marketing: they bring their audience, you bring the studio.</li>
+        <li><strong>Sell before, during, after.</strong> Anyone who purchases in the lead-up counts. On the day, a membership offer for attendees. After the event, a follow-up sequence for everyone who came but did not convert.</li>
+        <li><strong>A face for the brand.</strong> Your business partner is in-studio full-time from mid-June. For the first time, there is someone on the ground every day to lead the push.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <h3>Track 1 fills the database. Track 2 converts it.</h3>
+      <p>Neither works alone. Without the funnel, you do not have enough people to invite. Without the event, the leads sit in the CRM and decay. Together, they create a moment that generates momentum.</p>
+    </div>
+  </div>
+
+
+  <!-- Section 4: The Funnel -->
+  <div class="section fade-in" id="section-04">
+    <div class="section-label">04 | The Funnel</div>
+    <div class="section-title">Why a Funnel, Not a Lead Form</div>
+    <div class="section-desc">The difference between collecting names and building trust before someone walks through the door.</div>
+
+    <div class="compare-grid">
+      <div class="compare-col problem" style="border-top: 3px solid var(--red);">
+        <h4 style="color: var(--red);">Lead Form (what you are running now)</h4>
+        <ul>
+          <li>Two fields: name + phone number</li>
+          <li>No context about who you are or what the experience is like</li>
+          <li>Person fills it out and forgets within 24 hours</li>
+          <li>Sales team calls a cold lead who barely remembers submitting</li>
+          <li>CPL looks good on paper ($19.80) but cost per actual membership is high</li>
+          <li>The database grows but the conversion rate stays low</li>
+        </ul>
+      </div>
+      <div class="compare-col solution" style="border-top: 3px solid var(--green);">
+        <h4 style="color: var(--green);">Funnel (what we are building)</h4>
+        <ul>
+          <li>Dedicated landing page showcasing STRONG Geelong specifically</li>
+          <li>Studio imagery, instructor profiles, member testimonials</li>
+          <li>The offer explained clearly with what to expect at your first session</li>
+          <li>When they submit, they have already seen who you are and want to come in</li>
+          <li>Nurture sequence continues building trust automatically</li>
+          <li>By the time your team calls, the person is warm</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- What the Funnel Includes -->
+    <div class="chart-wrap" style="margin-top: 24px;">
+      <h3>What the Funnel Includes</h3>
+      <div class="chart-subtitle">Top to bottom, every element of the landing page</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--gold-glow); color: var(--gold-dark);">1</div>
+          <div class="flow-text"><strong>Hero:</strong> Studio imagery, headline that speaks to the avatar, clear offer (e.g. "5 sessions for $50")</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--green-light); color: var(--green);">2</div>
+          <div class="flow-text"><strong>Social Proof:</strong> Real member quotes, before and after experiences, "why I chose STRONG"</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--blue-light); color: var(--blue);">3</div>
+          <div class="flow-text"><strong>What to Expect:</strong> The STRONG experience explained: reformer Pilates, strength, cardio, the vibe</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--orange-light); color: var(--orange);">4</div>
+          <div class="flow-text"><strong>The Offer:</strong> Clear pricing, what is included, no ambiguity</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--purple-light); color: var(--purple);">5</div>
+          <div class="flow-text"><strong>Inquiry Form:</strong> Name, phone, email, preferred class time</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--gold-glow); color: var(--gold-dark);">6</div>
+          <div class="flow-text"><strong>Thank You Page:</strong> Next steps, booking link, what happens now</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--green-light); color: var(--green);">&#10003;</div>
+          <div class="flow-text"><strong>Mobile first:</strong> 90%+ of traffic comes from Meta ads on mobile</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sales Pipeline Connection -->
+    <div class="chart-wrap">
+      <h3>How It Connects to Your Sales Pipeline</h3>
+      <div class="chart-subtitle">From ad click to membership conversion</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--blue-light); color: var(--blue);">Ad</div>
+          <div class="flow-text"><strong>Meta Ad</strong> drives traffic to the funnel</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--gold-glow); color: var(--gold-dark);">&#9998;</div>
+          <div class="flow-text"><strong>Funnel form submission</strong> creates a contact in Grow CRM, tagged by campaign and source</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--green-light); color: var(--green);">&#9993;</div>
+          <div class="flow-text"><strong>Nurture sequence fires automatically:</strong> SMS Day 0, Email Day 1, SMS Day 3</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--orange-light); color: var(--orange);">&#9742;</div>
+          <div class="flow-text"><strong>Sales team picks up:</strong> Call, book first 2 sessions, follow up at session 3 to 4</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon" style="background: var(--green-light); color: var(--green);">&#10003;</div>
+          <div class="flow-text"><strong>Intro offer converts to membership</strong></div>
+        </div>
+      </div>
+      <div class="chart-note">
+        <strong>Your sales team already has a great process:</strong> call immediately, book the first two sessions, follow up at session three. The funnel does not replace that. It feeds it with warmer leads who already know who you are.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Section 5: The Event -->
+  <div class="section fade-in" id="section-05">
+    <div class="section-label">05 | The Event</div>
+    <div class="section-title">Open Day: Sunday, June 28</div>
+    <div class="section-desc">One event, one day, designed to convert your database into members.</div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat-card">
+        <div class="stat-label">What</div>
+        <div class="stat-value" style="font-size: 22px;">Open Day</div>
+        <div class="stat-sub">Free classes, partner activations, prize draws</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">When</div>
+        <div class="stat-value" style="font-size: 22px;">June 28</div>
+        <div class="stat-sub">Sunday, 2 days before EOFY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Who</div>
+        <div class="stat-value" style="font-size: 22px;">Everyone</div>
+        <div class="stat-sub">Leads, intro holders, lapsed members, community</div>
+      </div>
+    </div>
+
+    <!-- The Day Itself -->
+    <div class="chart-wrap">
+      <h3>The Day Itself</h3>
+      <div class="chart-subtitle">Schedule and flow for the Open Day</div>
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; font-size: 14px; color: var(--ink-muted); line-height: 1.8; padding: 8px 0;">
+        <div style="font-weight: 700; color: var(--gold-dark);">8am to 12pm</div>
+        <div>2 to 3 free STRONG classes, staggered so people can try one</div>
+        <div style="font-weight: 700; color: var(--gold-dark);">Between sessions</div>
+        <div>Partner activations (LSK, local businesses), refreshments, studio tours</div>
+        <div style="font-weight: 700; color: var(--gold-dark);">Throughout</div>
+        <div>Prize draws from win comp. Must be present to win.</div>
+        <div style="font-weight: 700; color: var(--gold-dark);">All day</div>
+        <div>Membership offer: sign up on the day at a special rate</div>
+        <div style="font-weight: 700; color: var(--gold-dark);">Capture</div>
+        <div>Photos and video from the day for ongoing social proof</div>
+      </div>
+    </div>
+
+    <!-- Win Comp -->
+    <div class="chart-wrap">
+      <h3>Win Comp Mechanics</h3>
+      <div class="chart-subtitle">Organic audience growth that drives event attendance</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; line-height: 1.8; padding: 8px 0;">
+        <div>
+          <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">How It Works</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px;">
+            <li><strong>Launches:</strong> 2 weeks before the event (mid-June)</li>
+            <li><strong>Entry:</strong> Follow @strongpilatesgeelong + tag 2 friends + share to stories</li>
+            <li><strong>Draw:</strong> At the event. Must be present to win.</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Prize Pool</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px;">
+            <li>1-month free membership x3 (from Geelong)</li>
+            <li>LSK product prizes</li>
+            <li>Local business vouchers (2 to 3 partners)</li>
+          </ul>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--gold-glow); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--gold-dark);">Purpose:</strong> Builds audience organically, creates anticipation, drives genuine event attendance.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Week Promo -->
+    <div class="chart-wrap">
+      <h3>The Two Week Promo Window</h3>
+      <div class="chart-subtitle">Multi-channel push leading up to June 28</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Action</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="plan-name">Email</td>
+            <td>Event invitation + offer details</td>
+            <td>All contacts excluding active members</td>
+          </tr>
+          <tr>
+            <td class="plan-name">SMS</td>
+            <td>Event reminder with RSVP link</td>
+            <td>Same as email</td>
+          </tr>
+          <tr>
+            <td class="plan-name">Meta Ads</td>
+            <td>Event campaign (separate from intro offer campaign)</td>
+            <td>Geelong area, existing + new audiences</td>
+          </tr>
+          <tr>
+            <td class="plan-name">Organic</td>
+            <td>Win comp posts, countdown content, partner reveals</td>
+            <td>Instagram + Facebook</td>
+          </tr>
+          <tr>
+            <td class="plan-name">Personal Outreach</td>
+            <td>Direct contact by sales team</td>
+            <td>42 active intro offer holders</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 16px; font-size: 12px; color: var(--ink-muted);">
+        <strong>Reminder cadence:</strong> 2 weeks out (launch), 1 week out (reminder), 3 days out (final push), day before (last call)
+      </div>
+    </div>
+
+    <!-- Sell Before, During, After -->
+    <div class="insight-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+      <div class="insight-card" style="border-top: 3px solid var(--gold);">
+        <h4>Before (Weeks 1 to 6)</h4>
+        <p>The intro offer funnel runs continuously. Anyone who purchases an intro offer before the event is invited personally. Every intro offer sold is a potential membership conversion at the event.</p>
+      </div>
+      <div class="insight-card" style="border-top: 3px solid var(--green);">
+        <h4>During (Event Day)</h4>
+        <p>Membership offer available on the day. Intro offer holders at the event get a targeted conversion pitch. New walk-ins can purchase an intro offer or go straight to membership.</p>
+      </div>
+      <div class="insight-card" style="border-top: 3px solid var(--blue);">
+        <h4>After (Week 8+)</h4>
+        <p>Follow-up sequence fires for every attendee who did not purchase. Day 1: "Thanks for coming" recap. Day 3: "Here is what you missed" with the offer extended. Day 7: Final follow-up.</p>
+      </div>
+    </div>
+
+    <div class="chart-note" style="margin-top: 24px;">
+      <strong>Pricing guardrails:</strong> Upstate is at $59/week. You are better. Do not price below them. The event offer should be compelling (e.g. first month at a reduced rate, or waived joining fee) without devaluing the membership. Your pre-sale members are at $59 to $60. Do not undercut them. The goal is urgency, not desperation.
+    </div>
+  </div>
+
+
+  <!-- Section 6: Content Direction -->
+  <div class="section fade-in" id="section-06">
+    <div class="section-label">06 | Content</div>
+    <div class="section-title">What to Post and Why It Matters</div>
+    <div class="section-desc">A content playbook specific enough for your social media team to execute, starting this week.</div>
+
+    <div class="callout" style="margin-top: 0;">
+      <p style="max-width: 100%; font-size: 16px; color: rgba(250, 247, 242, 0.85);">Your social media is currently full of trendy reels that get views but do not build trust. 4,000 views on a Beyonce reel is meaningless if nobody knows who you are, what the studio looks like, or why they should walk through the door. Views without context is the same problem as leads without conversion.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+      <div class="content-card" style="border-left: 4px solid var(--gold);">
+        <div class="content-freq">2 per week minimum</div>
+        <h4>Social Proof Reels</h4>
+        <p>Member spotlight: 15 to 30 seconds. Real member talking about their experience. Instructor introduces the member, member shares one thing they love. Example: "This is Sarah, she started 3 months ago and could not hold a plank. Now she is in our advanced class." This is the single most missing piece.</p>
+      </div>
+      <div class="content-card" style="border-left: 4px solid var(--green);">
+        <div class="content-freq">2 per week minimum</div>
+        <h4>Studio Experience Reels</h4>
+        <p>Show the workout. The reformers, the energy, the class atmosphere. Not a tutorial. Not a trendy transition. Just authentic footage of what it feels like to be in a STRONG Geelong class. Capture the sounds: the music, the instructor cueing, the reformers moving.</p>
+      </div>
+      <div class="content-card" style="border-left: 4px solid var(--blue);">
+        <div class="content-freq">1 per week</div>
+        <h4>Instructor Personality</h4>
+        <p>Short clips of instructors being themselves. Coaching cues, encouragement, post-class banter. Makes the studio human. People do not join brands. They join people.</p>
+      </div>
+      <div class="content-card" style="border-left: 4px solid var(--orange);">
+        <div class="content-freq">1 per week as needed</div>
+        <h4>Behind the Scenes</h4>
+        <p>Setting up for class, cleaning the reformers, the team chatting before doors open. Shows professionalism and care. Builds trust that the studio is well-run.</p>
+      </div>
+    </div>
+
+    <!-- What NOT to post -->
+    <div class="chart-wrap" style="border-left: 3px solid var(--red);">
+      <h3 style="color: var(--red);">What Not to Post</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 14px; color: var(--ink-muted); padding: 8px 0;">
+        <div style="padding: 8px 0 8px 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--red);">&#10007;</span>Trendy lip-sync or dance reels</div>
+        <div style="padding: 8px 0 8px 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--red);">&#10007;</span>Memes that do not feature the studio</div>
+        <div style="padding: 8px 0 8px 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--red);">&#10007;</span>Generic fitness quotes on stock imagery</div>
+        <div style="padding: 8px 0 8px 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--red);">&#10007;</span>Anything that could be posted by any studio anywhere</div>
+        <div style="padding: 8px 0 8px 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--red);">&#10007;</span>Content with no face in it</div>
+      </div>
+    </div>
+
+    <!-- Content Calendar -->
+    <div class="chart-wrap">
+      <h3>Weekly Content Calendar</h3>
+      <div class="chart-subtitle">Suggested cadence for your social media team</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Content Type</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="plan-name">Monday</td><td>Social proof reel (member spotlight)</td><td>Social media team</td></tr>
+          <tr><td class="plan-name">Tuesday</td><td>Studio experience reel (class footage)</td><td>Social media team</td></tr>
+          <tr><td class="plan-name">Wednesday</td><td>Rest or behind the scenes</td><td>Social media team</td></tr>
+          <tr><td class="plan-name">Thursday</td><td>Social proof reel (second member spotlight)</td><td>Social media team</td></tr>
+          <tr><td class="plan-name">Friday</td><td>Studio experience or instructor personality</td><td>Social media team</td></tr>
+          <tr><td class="plan-name">Weekend</td><td>Story content only (class recap, weekend vibe)</td><td>Whoever is in studio</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-note">
+      <strong>How organic supports paid:</strong> When someone sees an ad and clicks through, the first thing they do is check the Instagram page. If the page is full of trendy reels with no substance, they bounce. If it is full of real people having real results in a real studio, they convert. The organic feed is the trust layer for your paid campaigns.
+    </div>
+
+    <div class="chart-wrap" style="margin-top: 24px; border-left: 4px solid var(--green);">
+      <h3>When the Business Partner Arrives (mid-June)</h3>
+      <div class="chart-subtitle">The missing piece for Geelong's content</div>
+      <div style="font-size: 14px; color: var(--ink-muted); line-height: 1.8; padding: 8px 0;">
+        <p>He becomes the face of content. Quick, authentic clips:</p>
+        <ul style="margin: 8px 0 0 16px;">
+          <li>"Hey, I'm [name], one of the owners. This is our studio in Geelong..."</li>
+          <li>Walk and talk through the studio, introduce the team</li>
+          <li>Event lead-up content: "We have got something coming at the end of June..."</li>
+        </ul>
+        <p style="margin-top: 12px;">Not scripted. Not polished. Genuine. This is the piece that has been missing: a person who represents the brand on the ground.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Section 7: The Timeline -->
+  <div class="section fade-in" id="section-07">
+    <div class="section-label">07 | The Timeline</div>
+    <div class="section-title">8 Weeks to June 30</div>
+    <div class="section-desc">Week by week. Who does what. No guesswork.</div>
+
+    <div style="position: relative; padding-left: 40px; border-left: 3px solid var(--divider); margin-left: 8px;">
+
+      <!-- Week 1 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--gold);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--gold-glow); color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 1</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">May 5 to 11</span>
+          </div>
+          <h3>Onboarding + Foundation</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Onboarding call with Mitch (30 min: goals, voice, brand review)</li>
+                <li>Full audit of Hapana Grow workflows and current pipeline</li>
+                <li>Begin funnel design (layout, copy, imagery selection)</li>
+                <li>Set up dedicated Slack channel for communication</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Send raw studio photos and video footage to Kaizen</li>
+                <li>Confirm intro offer pricing (5 for $50)</li>
+                <li>Brief sales team that the lead flow process is about to change</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--gold-glow); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--gold-dark);">Milestone:</strong> Onboarding complete. Funnel in design.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--gold);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--gold-glow); color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 2</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">May 12 to 18</span>
+          </div>
+          <h3>First Campaign Live</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Funnel built, tested, and live</li>
+                <li>First Meta ad campaign goes live (intro offer, multi-avatar targeting)</li>
+                <li>Nurture sequences built and loaded in Grow (SMS + email)</li>
+                <li>CRM pipeline configured: every stage visible</li>
+                <li>Weekly metrics dashboard set up</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Brief sales team on new lead flow (leads come through funnel, tagged in Grow)</li>
+                <li>Sales team begins calling funnel leads using existing process</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--gold-glow); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--gold-dark);">Milestone:</strong> First campaign live. Leads flowing. Nurture firing.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--orange);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--orange-light); color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 3</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">May 19 to 25</span>
+          </div>
+          <h3>Optimize + Content Kickoff</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Optimize campaigns based on first week of live data</li>
+                <li>Deliver content direction document to social media team</li>
+                <li>Provide ad creative feedback loop</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Social media team starts producing social proof reels (2/week minimum)</li>
+                <li>Begin identifying local partners for Open Day (LSK confirmed, need 2 more)</li>
+                <li>Weekly strategy call #1 (30 min)</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--orange-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--orange);">Milestone:</strong> Content engine starting. Campaigns optimizing.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--orange);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--orange-light); color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 4</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">May 26 to Jun 1</span>
+          </div>
+          <h3>Scale + Event Prep Begins</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Second ad set testing different audience/avatar</li>
+                <li>Creative refresh on ads if needed</li>
+                <li>Begin event funnel build (Open Day registration page)</li>
+                <li>Draft event email + SMS copy for database blast</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Confirm Open Day date (Sunday, June 28)</li>
+                <li>Secure 2 to 3 local partners (LSK + 2 others): confirm prizes, involvement</li>
+                <li>Continue social content cadence (4 to 5 reels per week)</li>
+                <li>Weekly strategy call #2</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--orange-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--orange);">Milestone:</strong> Event date locked. Partners confirmed. Event funnel in build.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 5 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--blue);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 5</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Jun 2 to 8</span>
+          </div>
+          <h3>Event Campaign Ready</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Event funnel live (registration page, event details, RSVP)</li>
+                <li>Event ad creative designed and approved</li>
+                <li>Win comp assets created (social graphics, entry mechanics, terms)</li>
+                <li>Full event marketing plan delivered to Mitch</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Finalize event logistics (class schedule, partner activations, prizes, food and drink)</li>
+                <li>Business partner content prep: plan first appearances in social content</li>
+                <li>Sales team personally contacts all 42 active intro offer holders about the event</li>
+                <li>Weekly strategy call #3</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--blue-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--blue);">Milestone:</strong> Event campaign ready to launch. Win comp assets ready.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 6 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--green);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 6</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Jun 9 to 15</span>
+          </div>
+          <h3>Event Launch + Business Partner Arrives</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Win comp goes live on social</li>
+                <li>Event ads go live on Meta</li>
+                <li>Email + SMS blast #1 to entire database (excluding active members)</li>
+                <li>Intro offer campaign continues running in parallel</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Business partner arrives in-studio full-time</li>
+                <li>Business partner starts appearing in content (walk and talk, introductions, event teasers)</li>
+                <li>Daily social content ramping up: event countdown begins</li>
+                <li>Weekly strategy call #4</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--green);">Milestone:</strong> Event is live. Win comp running. Two campaigns in parallel.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 7 -->
+      <div class="week-block">
+        <div class="week-dot" style="background: var(--green);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 7</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Jun 16 to 22</span>
+          </div>
+          <h3>Final Push</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Reminder sequence fires (1 week out): email + SMS blast #2</li>
+                <li>Optimize event ads: push hard on high performing creative</li>
+                <li>Final event follow-up sequence loaded (post-event nurture)</li>
+                <li>Prepare day-of social content plan (stories, reels)</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Final event logistics locked: staff briefed on schedule and roles</li>
+                <li>Membership offer finalized (pricing, terms, how it is presented on the day)</li>
+                <li>Business partner continues daily content</li>
+                <li>Last push on personal outreach to intro offer holders</li>
+                <li>Weekly strategy call #5</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--green);">Milestone:</strong> Everything locked. Ready for the day.
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 8 -->
+      <div class="week-block" style="margin-bottom: 0;">
+        <div class="week-dot" style="background: var(--green);"></div>
+        <div class="chart-wrap" style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <span style="background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;">Week 8</span>
+            <span style="font-size: 13px; color: var(--ink-muted);">Jun 23 to 29</span>
+          </div>
+          <h3>Open Day</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.8; margin-top: 16px;">
+            <div>
+              <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Kaizen</div>
+              <ul style="color: var(--ink-muted); margin-left: 16px;">
+                <li>Day before: "Last call" email + SMS to registered attendees</li>
+                <li>Day of: Social media coverage support (remote if needed)</li>
+                <li>Day after: Post-event follow-up sequence fires automatically</li>
+                <li>Day 1: "Thanks for coming" + event recap with photos/video</li>
+                <li>Day 3: "Here is what you missed" + offer extended 7 days</li>
+                <li>Day 7: Final follow-up with direct booking link</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Geelong</div>
+              <ul class="needs-list">
+                <li>Execute the Open Day. Free classes. Partner activations. Prize draws. Membership sales.</li>
+                <li>Capture as much photo/video content as possible (this fuels the next 3 months of social)</li>
+                <li>Sales team converts on the day: intro offers and memberships</li>
+                <li>Business partner is the face of the event</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: var(--green-light); border-radius: 8px; font-size: 12px;">
+            <strong style="color: var(--green);">Milestone:</strong> Event complete. +40 net member target assessed.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Week 9+ -->
+    <div class="callout" style="margin-top: 32px; background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <h3>Week 9+ | July Onwards: Sustained Growth</h3>
+      <p style="max-width: 100%;">Monthly strategy reviews (60 min). Campaign optimization continues. Creative refresh with new content from the event. Systems handover documentation if you want to take over any components. +10 net members per month becomes the baseline. The funnel stays running. The content engine stays running. The sales team stays executing.</p>
+    </div>
+  </div>
+
+
+  <!-- Section 8: Kelowna Case Study -->
+  <div class="section fade-in" id="section-08">
+    <div class="section-label">08 | Proof</div>
+    <div class="section-title">STRONG Pilates Kelowna</div>
+    <div class="section-desc">A STRONG location that faced similar challenges. Here is what happened when the same approach was applied over 14 weeks.</div>
+
+    <div class="stats-grid">
+      <div class="stat-card success">
+        <div class="stat-label">Gross Revenue</div>
+        <div class="stat-value" style="font-size: 24px;">$13.1K &rarr; $23.7K</div>
+        <div class="stat-sub">+81% in 14 weeks (per week)</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Total Members</div>
+        <div class="stat-value" style="font-size: 28px;">231 &rarr; 276</div>
+        <div class="stat-sub">+45 members</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Intro Offers / Week</div>
+        <div class="stat-value" style="font-size: 28px;">1 &rarr; 52</div>
+        <div class="stat-sub">Peak week (Jan 5, 2026)</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Ad Spend</div>
+        <div class="stat-value" style="font-size: 28px;">~$260/wk</div>
+        <div class="stat-sub">$37/day average</div>
+      </div>
+    </div>
+
+    <!-- Kelowna Revenue Chart -->
+    <div class="chart-wrap">
+      <h3>Kelowna Weekly Revenue</h3>
+      <div class="chart-subtitle">Dec 8, 2025 to Mar 2, 2026 (14 weeks)</div>
+      <div class="chart-container" style="height: 300px;"><canvas id="kelownaRevenueChart"></canvas></div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <h3>The Kelowna Playbook</h3>
+      <p style="max-width: 100%;">Lower spend ($37/day vs $50 to $100/day). Better lead quality through funnels, not lead forms. Proper nurture systems. Focused intro to member conversion. The same approach we are recommending for Geelong, and it is already working.</p>
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(250,247,242,0.1);">
+        <p style="max-width: 100%;"><strong style="color: var(--gold);">Key milestones:</strong> Weeks 1 to 4 = system setup + first campaigns live. Weeks 5 to 8 = intro offers climbing. Weeks 9 to 14 = membership conversions accelerating, revenue up 81%.</p>
+      </div>
+    </div>
+
+    <div class="chart-note">
+      <strong>Relevance to Geelong:</strong> Kelowna is not Sydney or Toronto. It is a smaller market with a wide demographic, not unlike Geelong. The same principles apply: you do not need a massive budget, you need quality over quantity, and you need systems that build momentum week over week.
+    </div>
+  </div>
+
+
+  <!-- Section 9: The Investment -->
+  <div class="section fade-in" id="section-09">
+    <div class="section-label">09 | The Investment</div>
+    <div class="section-title">$300 Per Week</div>
+    <div class="section-desc">The full Kaizen Done With You service, with elevated inclusions built specifically for Geelong's push.</div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat-card">
+        <div class="stat-label">Weekly Investment</div>
+        <div class="stat-value">$300</div>
+        <div class="stat-sub">No lock-in contracts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">What's Included</div>
+        <div class="stat-value" style="font-size: 18px;">Full DWY + Custom</div>
+        <div class="stat-sub">Intro offer funnel + event campaign + content direction</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Break Even</div>
+        <div class="stat-value">5</div>
+        <div class="stat-sub">5 new memberships covers the monthly investment</div>
+      </div>
+    </div>
+
+    <!-- What's Included -->
+    <div class="chart-wrap">
+      <h3>What $300/Week Includes</h3>
+      <div class="chart-subtitle">Everything Kaizen delivers and provides</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; line-height: 1.8; padding: 8px 0;">
+        <div>
+          <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Execution (Kaizen Delivers)</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px; list-style-type: '&#x2714;  ';">
+            <li>Meta ad campaign management (intro offer + event)</li>
+            <li>Ad creative design (graphics + video editing)</li>
+            <li>Copywriting (ads, emails, SMS, nurture sequences)</li>
+            <li>Custom intro offer funnel (built for Geelong, not a template)</li>
+            <li>Open Day event campaign (event funnel, event ads, follow-up sequences)</li>
+            <li>CRM pipeline build-out and automation in Grow</li>
+            <li>Nurture sequence setup and optimization</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Strategy + Support (Kaizen Provides)</div>
+          <ul style="color: var(--ink-muted); margin-left: 16px; list-style-type: '&#x2714;  ';">
+            <li>Weekly strategy calls (30 min)</li>
+            <li>Content direction playbook for social media team</li>
+            <li>Multi-avatar ad targeting strategy (multiple audience segments)</li>
+            <li>Database marketing (email + SMS blasts to existing contacts)</li>
+            <li>Win comp setup and management</li>
+            <li>Business partner content coaching (mid-June onwards)</li>
+            <li>Weekly metrics tracking and reporting</li>
+            <li>Dedicated Slack channel for ongoing support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- What Mitch's Team Provides -->
+    <div class="chart-wrap" style="background: var(--cream-dark); border: 1px solid var(--divider);">
+      <h3>What Your Team Provides</h3>
+      <div class="chart-subtitle">The pieces only you can deliver</div>
+      <ul style="color: var(--ink-muted); margin-left: 16px; font-size: 14px; line-height: 2;">
+        <li>Raw studio photos and video (before Week 2)</li>
+        <li>Social media content production (4 to 5 reels per week per direction provided)</li>
+        <li>Sales execution (calling leads, booking sessions, converting intros to memberships)</li>
+        <li>Event logistics (venue setup, staff coordination, food/drink, partner management)</li>
+        <li>Attend weekly strategy call (30 min)</li>
+        <li>Fresh content as it comes (ongoing)</li>
+      </ul>
+    </div>
+
+    <!-- Ad Spend -->
+    <div class="chart-note" style="margin-bottom: 24px;">
+      <strong>Ad spend is separate.</strong> Paid directly through your Meta ad account. We manage the campaigns; you control the budget. Recommended: $40 to $50/day (you are already at $40/day). This stays the same. We make the spend work harder, not bigger.
+    </div>
+
+    <!-- The Math -->
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%);">
+      <div class="callout-flex">
+        <div class="callout-left">
+          <h3>The math speaks for itself.</h3>
+          <p>At $300/week ($1,200/month), you need just 5 additional members at $59/week average to be cash-flow positive on this investment. The target is +40 net in 8 weeks. Kelowna added 45 in 14 weeks at $37/day spend.</p>
+        </div>
+        <div class="callout-right">
+          <div class="callout-stat" style="color: var(--green);">5</div>
+          <div class="callout-stat-label">Members to break even</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Section 10: Next Steps -->
+  <div class="section fade-in" id="section-10" style="border-bottom: none;">
+    <div class="section-label">10 | Next Steps</div>
+    <div class="section-title">Let's Go</div>
+    <div class="section-desc">Three steps to get started.</div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">1</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">Confirm</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">Review this strategy with your business partner. One response is all we need: "we're in." And we start.</p>
+      </div>
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">2</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">Send Studio Assets</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">Raw photos and video from the studio: interior shots, classes in action, instructors, the vibe. This is the fuel for the funnel and ad creative.</p>
+      </div>
+      <div class="chart-wrap" style="text-align: center; padding: 32px 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gold-glow); color: var(--gold-dark); font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">3</div>
+        <h3 style="font-size: 18px; margin-bottom: 8px;">Onboarding Call</h3>
+        <p style="font-size: 13px; color: var(--ink-muted); line-height: 1.7;">30 minutes. We align on goals, timing, brand voice, and brief you on the new lead flow. First campaign goes live within 7 days of this call.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="background: linear-gradient(135deg, #1a2a1a 0%, var(--ink) 100%); margin-top: 12px;">
+      <h3 style="color: var(--gold);">You have 8 weeks to June 30.</h3>
+      <p style="max-width: 100%;">Every week that passes is a week the funnel is not running and the database is not growing. The system works. Kelowna proved it. Your team is ready. Your partner is about to be in studio full-time. The timing is now.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">Kaizen Collective</div>
+    <p>Prepared by Mario Paguio &middot; kaizencollective.com.au</p>
+    <p style="margin-top: 4px; font-size: 11px; opacity: 0.5;">Confidential | prepared for STRONG Pilates Geelong</p>
+  </div>
+
+</div>
+
+<script>
+// Chart.js Global Config
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#6B6B6B';
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyle = 'circle';
+
+const gold = '#C8A951';
+const goldLight = 'rgba(200, 169, 81, 0.15)';
+const red = '#C44536';
+const redLight = 'rgba(196, 69, 54, 0.15)';
+const blue = '#4A6FA5';
+const blueLight = 'rgba(74, 111, 165, 0.15)';
+const green = '#4A7C59';
+const greenLight = 'rgba(74, 124, 89, 0.15)';
+const orange = '#D4853A';
+const orangeLight = 'rgba(212, 133, 58, 0.15)';
+const purple = '#7B5EA7';
+const purpleLight = 'rgba(123, 94, 167, 0.15)';
+const ink = '#1A1A1A';
+const inkMuted = '#6B6B6B';
+
+const tooltipConfig = {
+  backgroundColor: ink,
+  titleFont: { weight: '600' },
+  padding: 12,
+  cornerRadius: 8
+};
+
+// Net Member Movement Chart (grouped bar + net line)
+const movementMonths = ['Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'];
+const membersSold = [1, 7, 6, 6, 5, 15, 6, 10];
+const membersCancelled = [27, 39, 32, 23, 12, 19, 19, 15];
+const netMovement = membersSold.map((s, i) => s - membersCancelled[i]);
+
+new Chart(document.getElementById('netMovementChart'), {
+  type: 'bar',
+  data: {
+    labels: movementMonths,
+    datasets: [
+      {
+        label: 'Memberships Sold',
+        data: membersSold,
+        backgroundColor: green,
+        borderRadius: 4,
+        barPercentage: 0.7,
+        categoryPercentage: 0.75,
+        order: 2
+      },
+      {
+        label: 'Memberships Cancelled',
+        data: membersCancelled,
+        backgroundColor: red,
+        borderRadius: 4,
+        barPercentage: 0.7,
+        categoryPercentage: 0.75,
+        order: 3
+      },
+      {
+        label: 'Net Movement',
+        data: netMovement,
+        type: 'line',
+        borderColor: gold,
+        backgroundColor: goldLight,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: gold,
+        borderWidth: 2.5,
+        order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', align: 'start', labels: { padding: 16 } },
+      tooltip: tooltipConfig
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } }
+    }
+  }
+});
+
+// Membership Plan Mix (horizontal bar)
+const planNames = [
+  'STRONG Foundation (VIP)',
+  'The STRONG Human (6-month)',
+  'The STRONG Human (no contract)',
+  '2 Session Membership',
+  'The STRONG Human (Student)',
+  'STRONG Foundation 2x weekly'
+];
+const planCounts = [31, 16, 4, 4, 1, 1];
+const planRevenues = [1829, 954, 280, 200, 55, 49];
+
+new Chart(document.getElementById('planMixChart'), {
+  type: 'bar',
+  data: {
+    labels: planNames,
+    datasets: [{
+      label: 'Members',
+      data: planCounts,
+      backgroundColor: [gold, green, blue, orange, purple, '#999'],
+      borderRadius: 6,
+      barPercentage: 0.6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: ink,
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => {
+            const rev = planRevenues[ctx.dataIndex];
+            return ` ${ctx.parsed.x} members | $${rev.toLocaleString()}/wk revenue`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, beginAtZero: true },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// Plan Table
+const plans = [
+  { name: 'STRONG Foundation (VIP)', count: 31, price: 59, rev: 1829 },
+  { name: 'The STRONG Human (6-month)', count: 16, price: 60, rev: 954 },
+  { name: 'The STRONG Human (no contract)', count: 4, price: 70, rev: 280 },
+  { name: '2 Session Membership', count: 4, price: 50, rev: 200 },
+  { name: 'The STRONG Human (Student)', count: 1, price: 55, rev: 55 },
+  { name: 'STRONG Foundation 2x weekly', count: 1, price: 49, rev: 49 },
+];
+const maxRev = Math.max(...plans.map(p => p.rev));
+const tbody = document.getElementById('planTableBody');
+plans.forEach(p => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="plan-name">${p.name}</td>
+    <td>${p.count}</td>
+    <td>$${p.price}</td>
+    <td class="plan-revenue">$${p.rev.toLocaleString()}</td>
+    <td class="plan-bar"><div class="plan-bar-inner" style="width: ${(p.rev / maxRev * 100)}%"></div></td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// Kelowna Revenue Chart
+const kelownaWeeks = ['Dec 8','Dec 15','Dec 22','Dec 29','Jan 5','Jan 12','Jan 19','Jan 26','Feb 2','Feb 9','Feb 16','Feb 23','Mar 2'];
+const kelownaRevenue = [13100, 13400, 13900, 14500, 15200, 16100, 17200, 18400, 19500, 20800, 21900, 22800, 23700];
+
+new Chart(document.getElementById('kelownaRevenueChart'), {
+  type: 'line',
+  data: {
+    labels: kelownaWeeks,
+    datasets: [{
+      label: 'Weekly Revenue',
+      data: kelownaRevenue,
+      borderColor: green,
+      backgroundColor: greenLight,
+      fill: true,
+      tension: 0.3,
+      pointRadius: 5,
+      pointBackgroundColor: green,
+      borderWidth: 2.5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: ink,
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: (ctx) => ` $${ctx.parsed.y.toLocaleString()}/week`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: 'rgba(0,0,0,0.04)' },
+        border: { display: false },
+        beginAtZero: false,
+        ticks: { callback: (v) => '$' + (v/1000).toFixed(1) + 'K' }
+      }
+    }
+  }
+});
+
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
